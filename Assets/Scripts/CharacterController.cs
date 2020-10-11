@@ -14,7 +14,6 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
     [SerializeField]
     private RuntimeAnimatorController whileAimingAnimatorController = null, simpleAnimatorController = null;
 
-    private GameObject cam1, pos1, pos2;
 
     private Rigidbody physic;
 
@@ -37,9 +36,7 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
         physic = GetComponent<Rigidbody>();
         CharacterAnimator = GetComponent<Animator>();
         iskelet = CharacterAnimator.GetBoneTransform(HumanBodyBones.Chest);
-        cam1 = characterCamera.transform.Find("Main Camera").gameObject;
-        pos1 = characterCamera.transform.Find("pos1").gameObject;
-        pos2 = characterCamera.transform.Find("pos2").gameObject;
+     
         arrowPool = Bow.GetComponent<BowController>().CreateArrow();
 
     }
@@ -55,9 +52,8 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
 
         if (drawControl) {
 
-            CameraMoveWhileAiming();
             //Cam goes to close right of our character.
-            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.015f);
+            
 
             DrawBow();
 
@@ -65,8 +61,8 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
         }
         else
         {
-            CameraMoveSimple();
-            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, 0.015f);
+
+            
         }
 
         CharacterAnimator.SetFloat("HorizontalAnim", horizontal);
@@ -84,40 +80,11 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
 
         if (drawControl)
         {
-           iskelet.rotation = iskelet.rotation * Quaternion.Euler(new Vector3(0, 0, verticalMouse));
+           
         }
     }
 
-    private void CameraMoveWhileAiming()
-    {
-        handleCameraMovement();
-        crossHair.SetActive(true);
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
-    }
-
-    private void CameraMoveSimple()
-    {
-        handleCameraMovement();
-
-        if (horizontal != 0 || vertical != 0)
-        {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
-        }
-    }
-
-    private void handleCameraMovement()
-    {
-        crossHair.SetActive(false);
-
-        verticalMouse += Input.GetAxisRaw("Mouse Y") * Time.deltaTime * -150;
-        horizontalMouse += Input.GetAxisRaw("Mouse X") * Time.deltaTime * 150;
-
-        characterCamera.transform.rotation = Quaternion.Euler(verticalMouse, horizontalMouse, transform.eulerAngles.z);
-        characterCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
-
-        verticalMouse = Mathf.Clamp(verticalMouse, -30, 10);
-    }
+    
 
     public void handleMovement()
     {

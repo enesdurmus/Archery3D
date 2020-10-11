@@ -1989,7 +1989,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1896855830273492417, guid: 958da787c19d0324289af40eea486295, type: 3}
   m_PrefabInstance: {fileID: 6443525982734765151}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4845588348572748197
+--- !u!114 &4845588348572748200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1998,21 +1998,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4845588348572748190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d3b278557216c4d94ab33bde89f6c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterCamera: {fileID: 426602227}
-  crossHair: {fileID: 861933779}
---- !u!114 &4845588348572748198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4845588348572748190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3325c8e7f6f2c49a7ab97d71d17fd7, type: 3}
+  m_Script: {fileID: 11500000, guid: aa1e42453c39f714b9f2d81fc77c61c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6443525982734765151
@@ -2074,21 +2060,17 @@ PrefabInstance:
       propertyPath: crossHair
       value: 
       objectReference: {fileID: 861933779}
-    - target: {fileID: 1626808277007260344, guid: 958da787c19d0324289af40eea486295, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.779
-      objectReference: {fileID: 0}
-    - target: {fileID: 1626808277007260344, guid: 958da787c19d0324289af40eea486295, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.116
-      objectReference: {fileID: 0}
-    - target: {fileID: 1626808277007260344, guid: 958da787c19d0324289af40eea486295, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.099
-      objectReference: {fileID: 0}
     - target: {fileID: 1896855830273492417, guid: 958da787c19d0324289af40eea486295, type: 3}
       propertyPath: m_Name
       value: akai_e_espiritu
       objectReference: {fileID: 0}
+    - target: {fileID: 4845588348572748197, guid: 958da787c19d0324289af40eea486295, type: 3}
+      propertyPath: characterCamera
+      value: 
+      objectReference: {fileID: 426602227}
+    - target: {fileID: 4845588348572748197, guid: 958da787c19d0324289af40eea486295, type: 3}
+      propertyPath: crossHair
+      value: 
+      objectReference: {fileID: 861933779}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 958da787c19d0324289af40eea486295, type: 3}

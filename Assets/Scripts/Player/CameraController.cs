@@ -5,7 +5,6 @@ public class CameraController : MonoBehaviour
     [SerializeField] private GameObject characterCamera = null, crossHair = null;
 
     private float verticalMouse = 0, horizontalMouse = 0;
-    float[] playerInputs;
     private Transform iskelet;
     private bool isMouseClicked;
     private Animator CharacterAnimator;
@@ -20,11 +19,6 @@ public class CameraController : MonoBehaviour
         iskelet = CharacterAnimator.GetBoneTransform(HumanBodyBones.Chest);
     }
 
-    private void Update()
-    {
-        handleCameraMovement();
-    }
-
     private void LateUpdate()
     {
         if (isMouseClicked)
@@ -33,7 +27,7 @@ public class CameraController : MonoBehaviour
         } 
     }
 
-    private void handleCameraMovement()
+    public void handleCameraMovement()
     {
         crossHair.SetActive(false);
 
@@ -42,9 +36,7 @@ public class CameraController : MonoBehaviour
         horizontalMouse = cameraInputs[1];
 
         characterCamera.transform.rotation = Quaternion.Euler(verticalMouse, horizontalMouse, transform.eulerAngles.z);
-        characterCamera.transform.position = Vector3.Lerp(characterCamera.transform.position,
-            new Vector3(transform.position.x, transform.position.y + 2, transform.position.z),
-            0.05f);
+        characterCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
 
         float[] playerInputs = GetComponent<PlayerInput>().GetMovementInputs();
         isMouseClicked = GetComponent<PlayerInput>().GetMouseClickInf();

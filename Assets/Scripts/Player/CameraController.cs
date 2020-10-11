@@ -49,17 +49,16 @@ public class CameraController : MonoBehaviour
         float[] playerInputs = GetComponent<PlayerInput>().GetMovementInputs();
         isMouseClicked = GetComponent<PlayerInput>().GetMouseClickInf();
 
-        if (isMouseClicked)
-        {
+        if (isMouseClicked){
             crossHair.SetActive(true);
             cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.015f);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
         }
-        else if(playerInputs[1] != 0 || playerInputs[0] != 0)
-        {
+        else if(playerInputs[1] != 0 || playerInputs[0] != 0){
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
+        }
+        else{
             cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, 0.015f);
         }
     }
-
 }

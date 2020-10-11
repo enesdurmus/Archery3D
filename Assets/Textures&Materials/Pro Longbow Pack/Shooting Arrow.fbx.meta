@@ -28,7 +28,23 @@ ModelImporter:
       mm\n\t'RightToeBase' : position error = 77.102211 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
-    animationRetargetingWarnings: 
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'mixamo.com':\n\tLeftLowerLeg
+      average position error 135.8 mm and maximum position error 145.3 mm at time
+      1:27 (38.0%) Frame 57\n\tLeftFoot average position error 235.8 mm and maximum
+      position error 240.5 mm at time 0: 0 (0.0%) Frame 0\n\tRightLowerLeg average
+      position error 137.0 mm and maximum position error 140.3 mm at time 2:21 (54.0%)
+      Frame 81\n\tRightFoot average position error 238.0 mm and maximum position
+      error 243.0 mm at time 3: 5 (63.3%) Frame 95\n\tLeftUpperArm average position
+      error 161.8 mm and maximum position error 170.3 mm at time 3: 3 (62.0%) Frame
+      93\n\tLeftLowerArm average position error 165.8 mm and maximum position error
+      233.0 mm at time 2:14 (49.3%) Frame 74\n\tLeftHand average position error 220.1
+      mm and maximum position error 309.3 mm at time 2:13 (48.7%) Frame 73\n\tRightUpperArm
+      average position error 164.3 mm and maximum position error 172.7 mm at time
+      1: 3 (22.0%) Frame 33\n\tRightLowerArm average position error 179.2 mm and
+      maximum position error 263.5 mm at time 1: 2 (21.3%) Frame 32\n\tRightHand
+      average position error 194.9 mm and maximum position error 315.3 mm at time
+      0:17 (11.3%) Frame 17\n\tHead average position error 201.8 mm and maximum position
+      error 206.0 mm at time 4:23 (95.3%) Frame 143\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -66,7 +82,7 @@ ModelImporter:
       curves: []
       events:
       - time: 1
-        functionName: finishShootAnim
+        functionName: FinishShootAnim
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

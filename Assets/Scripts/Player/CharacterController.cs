@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable, IArcher, IKillable
+public class CharacterController : MonoBehaviour
 {
     [SerializeField]
     [Range(0.0f, 3.0f)] private float CharacterMovementSpeed, CharacterRotationSpeed;
@@ -22,7 +22,6 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
 
     private Animator CharacterAnimator;
     private Transform iskelet;
-    private GameObject[] arrowPool;
     private bool drawControl = false;
 
     public float attackPower {get; set;}
@@ -35,36 +34,16 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
 
         physic = GetComponent<Rigidbody>();
         CharacterAnimator = GetComponent<Animator>();
-        iskelet = CharacterAnimator.GetBoneTransform(HumanBodyBones.Chest);
-     
-        arrowPool = Bow.GetComponent<BowController>().CreateArrow();
 
     }
+  
 
     private void Update()
     {
         HandleRun();
 
-        AttackControl();
-
         handleJump();
-        
-
-        if (drawControl) {
-
-            //Cam goes to close right of our character.
-            
-
-            DrawBow();
-
-            Attack();
-        }
-        else
-        {
-
-            
-        }
-
+ 
         CharacterAnimator.SetFloat("HorizontalAnim", horizontal);
         CharacterAnimator.SetFloat("VerticalAnim", vertical);
 
@@ -75,14 +54,6 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
         handleMovement();
     }
 
-    private void LateUpdate()
-    {
-
-        if (drawControl)
-        {
-           
-        }
-    }
 
     
 
@@ -125,51 +96,6 @@ public class CharacterController : MonoBehaviour, IMovable, IRunnable, IJumpable
         }
     }
 
-    public void finishJumpAnim()
-    {
-        CharacterAnimator.SetBool("JumpAnim", false);
-    }
-
-    //------------------------SHOOT---------------------------------//
-
-    public void finishShootAnim()
-    {
-        CharacterAnimator.SetBool("isArrowShooted", false);
-        CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
-        drawControl = false;
-    }
-
-    public void DrawBow()
-    {
-        if (!CharacterAnimator.GetBool("isArrowShooted")){
-            Bow.GetComponent<BowController>().DrawBow();
-        }
-        
-    }
-
-    public void Attack()
-    {
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            if (drawControl)
-            {
-                if (!CharacterAnimator.GetBool("isArrowShooted"))
-                {
-                    Bow.GetComponent<BowController>().shootArrow(attackPower);
-                    CharacterAnimator.SetBool("isArrowShooted", true);
-                }
-            }
-        }
-    }
-
-    public void AttackControl()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            CharacterAnimator.runtimeAnimatorController = whileAimingAnimatorController;
-            drawControl = true;
-        }
-    }
 
     public void TakeDamage(float damage)
     {

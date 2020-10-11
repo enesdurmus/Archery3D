@@ -747,7 +747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626808277007260347}
   m_LocalRotation: {x: 0.20367125, y: 0.6843722, z: 0.13781218, w: 0.6864114}
-  m_LocalPosition: {x: 0.775, y: -0.194, z: -0.033}
+  m_LocalPosition: {x: 0.779, y: -0.116, z: -0.099}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8088322370300958461}
@@ -889,6 +889,9 @@ GameObject:
   - component: {fileID: 1626808276083128478}
   - component: {fileID: 6443525981611511088}
   - component: {fileID: 6443525982499243175}
+  - component: {fileID: 4845588348572748197}
+  - component: {fileID: 4845588348572748198}
+  - component: {fileID: 4845588348572748199}
   m_Layer: 0
   m_Name: akai_e_espiritu
   m_TagString: Player
@@ -991,6 +994,47 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7935473, y: 2.0168397, z: 0.42841697}
   m_Center: {x: 0.019717827, y: 1.0161499, z: -0.06827435}
+--- !u!114 &4845588348572748197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896855830273492417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d3b278557216c4d94ab33bde89f6c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterCamera: {fileID: 0}
+  crossHair: {fileID: 0}
+--- !u!114 &4845588348572748198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896855830273492417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3325c8e7f6f2c49a7ab97d71d17fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4845588348572748199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896855830273492417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cf767e523244b49b42d3ebf80e121d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bow: {fileID: 1626808276126415135}
+  whileAimingAnimatorController: {fileID: 9100000, guid: c0a9362c88ad1a74f8eefc626f0ea971, type: 2}
+  simpleAnimatorController: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64, type: 2}
 --- !u!1 &1969730103700283024
 GameObject:
   m_ObjectHideFlags: 0

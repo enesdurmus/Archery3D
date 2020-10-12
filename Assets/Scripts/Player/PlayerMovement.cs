@@ -28,21 +28,22 @@ public class PlayerMovement : MonoBehaviour
         CharacterAnimator.SetFloat("VerticalAnim", vertical);
     }
 
-  /*  public void HandleRun()
+    public float HandleRun(float CharacterMovementSpeed)
     {
         if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerSimple")
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 CharacterAnimator.SetBool("RunAnim", true);
-                CharacterMovementSpeed *= 2;
+                CharacterMovementSpeed *= 2f;
             }
             else if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 CharacterAnimator.SetBool("RunAnim", false);
-                CharacterMovementSpeed /= 2;
+                CharacterMovementSpeed /= 2f;
             }
         }
+        return CharacterMovementSpeed;
     }
 
     public void handleJump()
@@ -50,7 +51,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CharacterAnimator.SetBool("JumpAnim", true);
-            physic.AddForce(0, 500, 0);
+            physic.AddForce(0, 750, 0);
         }
-    }*/
+    }
+
+    public void FinishJumpAnim()
+    {
+        CharacterAnimator.SetBool("JumpAnim", false);
+    }
 }

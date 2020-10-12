@@ -4,6 +4,8 @@ public class ShootArrow : MonoBehaviour
 {
     [SerializeField] private GameObject Bow = null;
 
+    [SerializeField] private GameObject arrowTrigger = null;
+
     [SerializeField] private RuntimeAnimatorController whileAimingAnimatorController = null, simpleAnimatorController = null;
 
     private Animator CharacterAnimator;
@@ -26,6 +28,7 @@ public class ShootArrow : MonoBehaviour
         CharacterAnimator.SetBool("ShootArrow", false);
         CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
         drawControl = false;
+        arrowTrigger.SetActive(false);
     }
 
     private void DrawBow()
@@ -44,6 +47,7 @@ public class ShootArrow : MonoBehaviour
         }
         else{
             if(drawControl == true) {
+                arrowTrigger.SetActive(true);
                 Bow.GetComponent<BowController>().shootArrow(10f);
                 CharacterAnimator.SetBool("ShootArrow", true);
             }

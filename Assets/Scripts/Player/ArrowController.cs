@@ -28,7 +28,7 @@ public class ArrowController : MonoBehaviour
 
     void AddForceToArrow()
     {     
-        Vector3 direction = hit.point + new Vector3(0f,0.3f,0f) - arrowOutPos.transform.position;
+        Vector3 direction = hit.point + new Vector3(0f,0.5f,0f) - arrowOutPos.transform.position;
 
         physic.AddForce(direction.normalized * arrowSpeed);
 

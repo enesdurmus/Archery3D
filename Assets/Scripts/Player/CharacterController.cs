@@ -19,6 +19,8 @@ public class CharacterController : MonoBehaviour
     private void Update()
     {
         GetComponent<CameraController>().handleCameraMovement();
+        CharacterMovementSpeed = GetComponent<PlayerMovement>().HandleRun(CharacterMovementSpeed);
+        GetComponent<PlayerMovement>().handleJump();
     }
 
     private void FixedUpdate()

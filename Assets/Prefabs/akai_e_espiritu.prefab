@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2091324405
 Transform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091324404}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.28, y: -0.125, z: 0.155}
+  m_LocalPosition: {x: -0.953, y: -0.126, z: 0.154}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.01}
   m_Children: []
   m_Father: {fileID: 1626808276808658989}
@@ -42,7 +42,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.1}
+  m_Size: {x: 2, y: 2, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &19419337135097552
 GameObject:
@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 4845588348572748197}
   - component: {fileID: 4845588348572748198}
   - component: {fileID: 4845588348572748199}
+  - component: {fileID: 4845588348572748200}
   m_Layer: 0
   m_Name: akai_e_espiritu
   m_TagString: Player
@@ -964,11 +965,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterMovementSpeed: 3
   CharacterRotationSpeed: 3
-  characterCamera: {fileID: 0}
-  crossHair: {fileID: 0}
-  Bow: {fileID: 1626808276126415135}
-  whileAimingAnimatorController: {fileID: 9100000, guid: c0a9362c88ad1a74f8eefc626f0ea971, type: 2}
-  simpleAnimatorController: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64, type: 2}
 --- !u!114 &6443525981611511088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,8 +1029,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bow: {fileID: 1626808276126415135}
+  arrowTrigger: {fileID: 2091324404}
   whileAimingAnimatorController: {fileID: 9100000, guid: c0a9362c88ad1a74f8eefc626f0ea971, type: 2}
   simpleAnimatorController: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64, type: 2}
+--- !u!114 &4845588348572748200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896855830273492417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1e42453c39f714b9f2d81fc77c61c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1969730103700283024
 GameObject:
   m_ObjectHideFlags: 0

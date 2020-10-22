@@ -18,10 +18,6 @@ public class ShootArrow : MonoBehaviour
         Bow.GetComponent<BowController>().CreateArrow();
     }
 
-    private void Update()
-    {
-        HandleShootArrow();
-    }
 
     public void FinishShootAnim()
     {
@@ -36,7 +32,7 @@ public class ShootArrow : MonoBehaviour
         Bow.GetComponent<BowController>().DrawBow();
     }
 
-    private void HandleShootArrow(){
+    public void HandleShootArrow(){
         isMouseClicked = GetComponent<PlayerInput>().GetMouseClickInf();
         if (isMouseClicked){
             CharacterAnimator.runtimeAnimatorController = whileAimingAnimatorController;
@@ -48,7 +44,7 @@ public class ShootArrow : MonoBehaviour
         else{
             if(drawControl == true) {
                 arrowTrigger.SetActive(true);
-                Bow.GetComponent<BowController>().shootArrow(10f);
+                Bow.GetComponent<BowController>().shootArrow(20f);
                 CharacterAnimator.SetBool("ShootArrow", true);
             }
         }           

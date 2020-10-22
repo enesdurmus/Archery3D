@@ -21,6 +21,7 @@ public class CharacterController : MonoBehaviour
         GetComponent<CameraController>().handleCameraMovement();
         CharacterMovementSpeed = GetComponent<PlayerMovement>().HandleRun(CharacterMovementSpeed);
         GetComponent<PlayerMovement>().handleJump();
+        GetComponent<ShootArrow>().HandleShootArrow();
     }
 
     private void FixedUpdate()

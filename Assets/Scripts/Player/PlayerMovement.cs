@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
         float[] movementInputs = GetComponent<PlayerInput>().GetMovementInputs();
         vertical = movementInputs[0];
         horizontal = movementInputs[1];
-
+        Debug.Log(horizontal);
         Vector3 vectorX = transform.forward * vertical * CharacterMovementSpeed;
         vectorX.y = physic.velocity.y;
         Vector3 vectorZ = transform.right * horizontal * CharacterRotationSpeed;

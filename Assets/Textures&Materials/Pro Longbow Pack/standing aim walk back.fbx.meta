@@ -41,7 +41,7 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 44
       wrapMode: 0
-      orientationOffsetY: -15
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -873,7 +873,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

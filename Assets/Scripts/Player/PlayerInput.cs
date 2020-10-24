@@ -11,7 +11,6 @@ public class PlayerInput : MonoBehaviour
     {
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
-
         float[] inputs = {vertical, horizontal};
         return inputs;
     }

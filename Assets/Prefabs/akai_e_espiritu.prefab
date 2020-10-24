@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.01}
   m_Children: []
   m_Father: {fileID: 1626808276808658989}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &2091324406
 BoxCollider:
@@ -289,7 +289,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723860793338228116}
-  m_LocalRotation: {x: 5.820761e-11, y: -0.000000016364993, z: -0.000000003259629, w: 1}
+  m_LocalRotation: {x: 5.820761e-11, y: -0.000000016364993, z: -0.000000003259629,
+    w: 1}
   m_LocalPosition: {x: -0.0000000018626451, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -660,7 +661,6 @@ Transform:
   m_Children:
   - {fileID: 5077337818472728793}
   - {fileID: 7081009412403636318}
-  - {fileID: 1626808276143776189}
   - {fileID: 2091324405}
   m_Father: {fileID: 7473249997992908135}
   m_RootOrder: 5
@@ -677,7 +677,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5f53c98232595f48bcb3b37bcc64838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 7560470115589735529, guid: dc1d887fd5ab78a4e97356f52e7ed07a, type: 3}
+  arrowPrefab: {fileID: 7560470115589735529, guid: dc1d887fd5ab78a4e97356f52e7ed07a,
+    type: 3}
   arrowPos: {fileID: 1626808277007260347}
 --- !u!64 &6443525982569777204
 MeshCollider:
@@ -693,36 +694,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3c919f0ce76a306488137c6b19a6e9a4, type: 3}
---- !u!1 &1626808276143776188
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1626808276143776189}
-  m_Layer: 0
-  m_Name: ArrowOutPos
-  m_TagString: ArrowPosTag
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1626808276143776189
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626808276143776188}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.831, y: -0.118, z: 0.156}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1626808276808658989}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1626808277007260347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,8 +1001,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bow: {fileID: 1626808276126415135}
   arrowTrigger: {fileID: 2091324404}
-  whileAimingAnimatorController: {fileID: 9100000, guid: c0a9362c88ad1a74f8eefc626f0ea971, type: 2}
-  simpleAnimatorController: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64, type: 2}
+  whileAimingAnimatorController: {fileID: 9100000, guid: c0a9362c88ad1a74f8eefc626f0ea971,
+    type: 2}
+  simpleAnimatorController: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64,
+    type: 2}
 --- !u!114 &4845588348572748200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,7 +1689,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5199505632847076735}
-  m_LocalRotation: {x: -0.0000000804245, y: -0.000046644163, z: 0.00000041912816, w: 1}
+  m_LocalRotation: {x: -0.0000000804245, y: -0.000046644163, z: 0.00000041912816,
+    w: 1}
   m_LocalPosition: {x: 0.02538807, y: -0.0000018150711, z: 0.0019337306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1749,7 +1723,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5206209720098959307}
-  m_LocalRotation: {x: -5.8207647e-11, y: -0.000000012635613, z: 0.0000000011641534, w: 1}
+  m_LocalRotation: {x: -5.8207647e-11, y: -0.000000012635613, z: 0.0000000011641534,
+    w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2439,7 +2414,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7827520891648790593}
-  m_LocalRotation: {x: -0.00000024425842, y: -0.00000034398684, z: 0.000009259369, w: 1}
+  m_LocalRotation: {x: -0.00000024425842, y: -0.00000034398684, z: 0.000009259369,
+    w: 1}
   m_LocalPosition: {x: -0.00030027394, y: 1.1255909, z: -0.024077553}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

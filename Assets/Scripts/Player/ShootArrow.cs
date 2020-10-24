@@ -44,7 +44,7 @@ public class ShootArrow : MonoBehaviour
         else{
             if(drawControl == true) {
                 arrowTrigger.SetActive(true);
-                Bow.GetComponent<BowController>().shootArrow(20f);
+                Bow.GetComponent<BowController>().shootArrow(10f);
                 CharacterAnimator.SetBool("ShootArrow", true);
             }
         }           

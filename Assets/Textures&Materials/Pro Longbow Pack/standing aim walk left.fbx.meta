@@ -41,7 +41,7 @@ ModelImporter:
       firstFrame: 0
       lastFrame: 36
       wrapMode: 0
-      orientationOffsetY: -12.5
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -53,7 +53,7 @@ ModelImporter:
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -873,7 +873,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

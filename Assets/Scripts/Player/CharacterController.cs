@@ -4,10 +4,10 @@ public class CharacterController : MonoBehaviour
 {
 
     [SerializeField] [Range(0.0f, 3.0f)] private float CharacterMovementSpeed, CharacterRotationSpeed;
-    
 
     public float attackPower {get; set;}
     public float Healt {get; set;}
+    float vertical;
 
     void Start()
     {

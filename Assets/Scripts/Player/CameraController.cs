@@ -44,6 +44,7 @@ public class CameraController : MonoBehaviour
         if (isMouseClicked){
             crossHair.SetActive(true);
             cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.015f);
+            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos2.transform.rotation, 0.01f);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
         }
         else if(playerInputs[1] != 0 || playerInputs[0] != 0){
@@ -51,6 +52,7 @@ public class CameraController : MonoBehaviour
         }
         else{
             cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, 0.015f);
+            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos1.transform.rotation, 0.01f);
         }
     }
 }

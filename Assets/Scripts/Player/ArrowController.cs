@@ -5,8 +5,8 @@ public class ArrowController : MonoBehaviour
 {
     private GameObject arrowOutPos;
     private Rigidbody physic;
-    private Vector3 forceVector;
-    private float arrowSpeed = 2.5f;
+    private Vector3 direction;
+    private float arrowSpeed = 2f;
     private bool isArrowShooted = false;
     private RaycastHit hit;
     private float arrowPower = 0;
@@ -19,9 +19,6 @@ public class ArrowController : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = new Ray(arrowOutPos.transform.position , transform.forward);
-        Physics.Raycast(ray, out hit);
-        Debug.DrawLine(transform.position, hit.point);
         if (isArrowShooted)
         {
             AddForceToArrow();
@@ -31,19 +28,19 @@ public class ArrowController : MonoBehaviour
 
     void AddForceToArrow()
     {     
-        Vector3 direction = hit.point - arrowOutPos.transform.position;
-
-        physic.AddForce(direction.normalized * arrowSpeed);
+        physic.AddForce(direction * arrowSpeed);
 
         if (arrowSpeed > 0) {
-            arrowSpeed -= 0.01f;
+            arrowSpeed -= 0.002f;
         }    
     }
 
     public void InputUpdates(float attackPower)
     {
-       /* Ray ray = new Ray(arrowOutPos.transform.position + new Vector3(0f,1f,0f), transform.forward);
-        Physics.Raycast(ray, out hit);*/
+        
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Physics.Raycast(new Ray(arrowOutPos.transform.position + new Vector3(0.3f, 0.2f, 0f), ray.direction), out hit);
+        direction = (hit.point - arrowOutPos.transform.position).normalized;
         arrowPower = attackPower;
         isArrowShooted = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
@@ -51,7 +48,7 @@ public class ArrowController : MonoBehaviour
 
     public void ResetArrow()
     {
-        arrowSpeed = 2.5f;
+        arrowSpeed = 2f;
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().isTrigger = true;
         transform.GetComponent<Rigidbody>().isKinematic = true;

@@ -31,7 +31,7 @@ public class ArrowController : MonoBehaviour
         physic.AddForce(direction * arrowSpeed);
 
         if (arrowSpeed > 0) {
-            arrowSpeed -= 0.002f;
+            arrowSpeed -= 0.01f;
         }    
     }
 

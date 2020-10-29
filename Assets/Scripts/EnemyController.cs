@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IAttackable, IKillable
+public class EnemyController : MonoBehaviour
 {
     private Animator enemyAnimator;
     private bool isEnemyRoared = false;
@@ -69,26 +69,27 @@ public class EnemyController : MonoBehaviour, IAttackable, IKillable
         }
     }
 
-    public void EnemyRoaringAnimationFinish()
+    public void ZombieScreamAnimFinish()
     {
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(4f);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
         enemyAnimator.SetBool("isEnemyRoaring", false);
         enemyAnimator.SetBool("isEnemyRunning", true);
         isEnemyRoared = true;
     }
 
-    public void EnemyRoaringAnimationStart()
+    public void ZombieScreamAnimStart()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        Debug.Log("giriyormu");
     }
 
-    public void StartSwipingAnim()
+    public void StartAttackAnim()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
         enemyAnimator.SetBool("isEnemyRunning", false);
     }
 
-    public void FinishSwipingAnim()
+    public void FinishAttackAnim()
     {
         enemyAnimator.SetBool("isEnemyAttacked", false);
     }

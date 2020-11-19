@@ -1937,6 +1937,7 @@ GameObject:
   - component: {fileID: 5821642592515001375}
   - component: {fileID: 5821642592515001363}
   - component: {fileID: 5821642592515001360}
+  - component: {fileID: 1271466579}
   m_Layer: 0
   m_Name: zombie
   m_TagString: Untagged
@@ -2043,6 +2044,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!136 &1271466579
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632615629300511048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.24746323
+  m_Height: 1.8757391
+  m_Direction: 1
+  m_Center: {x: -0.010753393, y: 0.8458147, z: 0.033061653}
 --- !u!1 &6739848112991625224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,7 +2067,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6706549213712214807}
-  - component: {fileID: 8639490698748424294}
   m_Layer: 0
   m_Name: Zombie:Hips
   m_TagString: Untagged
@@ -2078,20 +2092,6 @@ Transform:
   m_Father: {fileID: 6287051925747231730}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8639490698748424294
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6739848112991625224}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3507347
-  m_Height: 1.9062071
-  m_Direction: 1
-  m_Center: {x: -0.010753274, y: -0.1576271, z: -7.677183e-19}
 --- !u!1 &6786635191586204911
 GameObject:
   m_ObjectHideFlags: 0

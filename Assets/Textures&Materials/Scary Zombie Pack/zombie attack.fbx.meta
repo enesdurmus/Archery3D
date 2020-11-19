@@ -66,7 +66,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: 0.84729064
         functionName: FinishAttackAnim
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -118,7 +118,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - 8c01aeaba1aacba44abb373a36d4e85e
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

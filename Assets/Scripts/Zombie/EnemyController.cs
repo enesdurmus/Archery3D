@@ -20,7 +20,9 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if(Healt > 0)
+        GetComponent<EnemyMovementAI>().handleMovement();
+
+        if (Healt > 0)
         {
             AttackControl();
         } 
@@ -33,7 +35,7 @@ public class EnemyController : MonoBehaviour
 
     public void AttackControl()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= 2f)
+        if (Vector3.Distance(player.transform.position, transform.position) <= 1.5f)
         {
             Attack();
         }
@@ -53,7 +55,6 @@ public class EnemyController : MonoBehaviour
 
         if(Healt != 0) {
             enemyAnimator.SetBool("enemyReact", true);
-            Debug.Log("GİRİYORMU");
         }
         
         Debug.Log(Healt);
@@ -66,7 +67,19 @@ public class EnemyController : MonoBehaviour
             enemyAnimator.SetBool("enemyDie", true);
             GetComponent<EnemyMovementAI>().enabled = false;
             GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+     
         }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (enemyAnimator.GetBool("isEnemyAttacked"))
+        {
+            if (col.gameObject.name == "akai_e_espiritu")
+            {
+                col.gameObject.GetComponent<CharacterController>().TakeDamage(10);
+            }
+        }   
     }
 
     public void ZombieScreamAnimFinish()
@@ -80,18 +93,17 @@ public class EnemyController : MonoBehaviour
     public void ZombieScreamAnimStart()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
-        Debug.Log("giriyormu");
     }
 
     public void StartAttackAnim()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
-        enemyAnimator.SetBool("isEnemyRunning", false);
     }
 
     public void FinishAttackAnim()
     {
         enemyAnimator.SetBool("isEnemyAttacked", false);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(2f);
     }
 
     public void StartWalkingAnim()
@@ -108,4 +120,11 @@ public class EnemyController : MonoBehaviour
     {
         enemyAnimator.SetBool("enemyReact", false);
     }
+    public void ZombieDieAnimEnd()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponentInChildren<CapsuleCollider>().enabled = false;
+    }
+
+
 }

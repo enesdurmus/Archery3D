@@ -15,11 +15,6 @@ public class EnemyMovementAI : MonoBehaviour, IMovable
         physic = GetComponent<Rigidbody>();
     }
 
-    void Update()
-    {
-        handleMovement();
-    }
-
 
     public void handleMovement()
     {

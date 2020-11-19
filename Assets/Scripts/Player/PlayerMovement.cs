@@ -58,4 +58,6 @@ public class PlayerMovement : MonoBehaviour
     {
         CharacterAnimator.SetBool("JumpAnim", false);
     }
+
+
 }

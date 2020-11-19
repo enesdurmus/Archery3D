@@ -7,14 +7,16 @@ public class CharacterController : MonoBehaviour
 
     public float attackPower {get; set;}
     public float Healt {get; set;}
-    float vertical;
+    private Animator CharacterAnimator;
 
     void Start()
     {
         Healt = 100f;
         attackPower = 10f;
+        CharacterAnimator = GetComponent<Animator>();
+
     }
-  
+
 
     private void Update()
     {
@@ -32,5 +34,10 @@ public class CharacterController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         Healt -= damage;
+        CharacterAnimator.SetBool("ReactParam", true);
+    }
+    public void ReactAnimEnd()
+    {
+        CharacterAnimator.SetBool("ReactParam", false);
     }
 }

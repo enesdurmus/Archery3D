@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ArrowController : MonoBehaviour
 {
@@ -57,8 +56,9 @@ public class ArrowController : MonoBehaviour
     void OnCollisionEnter(Collision col)
     {
         if(arrowSpeed > 0) {
-            if (col.gameObject.name == "mutant")
+            if (col.gameObject.name == "zombie")
             {
+                col.gameObject.GetComponent<BloodSplash>().Splash(transform.position);
                 col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower);
             }
         }

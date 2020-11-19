@@ -8,7 +8,7 @@ public class ArrowController : MonoBehaviour
     private float arrowSpeed = 2f;
     private bool isArrowShooted = false;
     private RaycastHit hit;
-    private float arrowPower = 0;
+    private int arrowPower = 0;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class ArrowController : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         Physics.Raycast(new Ray(arrowOutPos.transform.position + new Vector3(0.3f, 0.2f, 0f), ray.direction), out hit);
         direction = (hit.point - arrowOutPos.transform.position).normalized;
-        arrowPower = attackPower;
+        arrowPower = 10;
         isArrowShooted = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
     }

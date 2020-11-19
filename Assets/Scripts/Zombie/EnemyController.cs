@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,12 +10,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject player;
 
     public float attackPower {get; set;}
-    public float Healt {get; set;}
+
+    public HealtBar healtBar;
+    public int maxHealt = 100;
+    private int currentHealt;
 
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
-        Healt = 20f;
+        currentHealt = maxHealt;
+        healtBar.SetMaxHealt(maxHealt);
         attackPower = 10f;
     }
 
@@ -22,7 +27,7 @@ public class EnemyController : MonoBehaviour
     {
         GetComponent<EnemyMovementAI>().handleMovement();
 
-        if (Healt > 0)
+        if (currentHealt > 0)
         {
             AttackControl();
         } 
@@ -48,21 +53,22 @@ public class EnemyController : MonoBehaviour
         }
     }
    
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
-        Healt -= damage;
+        currentHealt -= damage;
+        healtBar.SetHealt(currentHealt);
         EnemyDie();
 
-        if(Healt != 0) {
+        if(currentHealt != 0) {
             enemyAnimator.SetBool("enemyReact", true);
         }
         
-        Debug.Log(Healt);
+        Debug.Log(currentHealt);
     }
 
     public void EnemyDie()
     {
-        if(Healt == 0)
+        if(currentHealt == 0)
         {
             enemyAnimator.SetBool("enemyDie", true);
             GetComponent<EnemyMovementAI>().enabled = false;

@@ -935,6 +935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterMovementSpeed: 3
   CharacterRotationSpeed: 3
+  healtBar: {fileID: 0}
 --- !u!114 &6443525981611511088
 MonoBehaviour:
   m_ObjectHideFlags: 0

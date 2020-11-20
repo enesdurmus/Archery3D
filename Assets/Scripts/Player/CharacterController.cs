@@ -6,15 +6,16 @@ public class CharacterController : MonoBehaviour
     [SerializeField] [Range(0.0f, 3.0f)] private float CharacterMovementSpeed, CharacterRotationSpeed;
 
     public float attackPower {get; set;}
-    public float Healt {get; set;}
     private Animator CharacterAnimator;
-
+    public HealtBar healtBar;
+    private int maxHealt = 100;
+    private int currentHealt;
     void Start()
     {
-        Healt = 100f;
+        currentHealt = maxHealt;
+        healtBar.SetMaxHealt(maxHealt);
         attackPower = 10f;
         CharacterAnimator = GetComponent<Animator>();
-
     }
 
 
@@ -31,9 +32,10 @@ public class CharacterController : MonoBehaviour
         GetComponent<PlayerMovement>().handleMovement(CharacterMovementSpeed, CharacterRotationSpeed);
     }
     
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
-        Healt -= damage;
+        currentHealt -= damage;
+        healtBar.SetHealt(currentHealt);
         CharacterAnimator.SetBool("ReactParam", true);
     }
     public void ReactAnimEnd()

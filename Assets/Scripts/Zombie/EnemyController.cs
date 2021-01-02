@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,11 +8,12 @@ public class EnemyController : MonoBehaviour
     private bool isEnemyRoared = false;
     [SerializeField] private GameObject player;
 
-    public float attackPower {get; set;}
+    public float attackPower { get; set; }
 
     public HealtBar healtBar;
     public int maxHealt = 100;
     private int currentHealt;
+    private int isHit = 0;
 
     void Start()
     {
@@ -30,50 +30,55 @@ public class EnemyController : MonoBehaviour
         if (currentHealt > 0)
         {
             AttackControl();
-        } 
-    }   
-
-    public void Attack()
-    {
-        enemyAnimator.SetBool("isEnemyAttacked", true);
+        }
     }
+    IEnumerator WaitForSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
 
+    }
     public void AttackControl()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= 1.5f)
+        if (Vector3.Distance(player.transform.position, transform.position) <= 1.5f && enemyAnimator.GetBool("isEnemyAttacked") == false)
         {
-            Attack();
+            enemyAnimator.SetBool("isEnemyAttacked", true);
         }
-        else if (Vector3.Distance(player.transform.position, transform.position) <= 7f)
+
+        else
         {
-            if (!isEnemyRoared)
+            enemyAnimator.SetBool("isEnemyAttacked", false);
+        }
+
+        if (!isEnemyRoared)
+        {
+            if (Vector3.Distance(player.transform.position, transform.position) <= 7f)
             {
                 enemyAnimator.SetBool("isEnemyRoaring", true);
-            } 
+            }
         }
     }
-   
+
     public void TakeDamage(int damage)
     {
         currentHealt -= damage;
         healtBar.SetHealt(currentHealt);
         EnemyDie();
 
-        if(currentHealt != 0) {
+        if (currentHealt != 0)
+        {
             enemyAnimator.SetBool("enemyReact", true);
         }
-        
+
         Debug.Log(currentHealt);
     }
 
     public void EnemyDie()
     {
-        if(currentHealt == 0)
+        if (currentHealt == 0)
         {
             enemyAnimator.SetBool("enemyDie", true);
             GetComponent<EnemyMovementAI>().enabled = false;
             GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
-     
         }
     }
 
@@ -83,9 +88,13 @@ public class EnemyController : MonoBehaviour
         {
             if (col.gameObject.name == "akai_e_espiritu")
             {
-                col.gameObject.GetComponent<CharacterController>().TakeDamage(10);
+                if (isHit == 0)
+                {
+                    col.gameObject.GetComponent<CharacterController>().TakeDamage(10);
+                    isHit = 1;
+                }
             }
-        }   
+        }
     }
 
     public void ZombieScreamAnimFinish()
@@ -109,17 +118,21 @@ public class EnemyController : MonoBehaviour
     public void FinishAttackAnim()
     {
         enemyAnimator.SetBool("isEnemyAttacked", false);
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(2f);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
+        isHit = 0;
+        Debug.Log("girdimi");
     }
 
     public void StartWalkingAnim()
     {
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(2f);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(1f);
     }
 
     public void StartReactAnim()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        Debug.Log("girdimi3");
+
     }
 
     public void EndReactAnim()

@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
     public HealtBar healtBar;
     private int maxHealt = 100;
     private int currentHealt;
+    private RaycastHit hit;
     void Start()
     {
         currentHealt = maxHealt;

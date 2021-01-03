@@ -7,7 +7,7 @@ public class ArrowController : MonoBehaviour
     private Vector3 direction;
     private float arrowSpeed = 2f;
     private bool isArrowShooted = false;
-    private RaycastHit hit;
+    private RaycastHit hit, hit2;
     private int arrowPower = 0;
 
     private void Start()
@@ -22,16 +22,12 @@ public class ArrowController : MonoBehaviour
         {
             AddForceToArrow();
         }
-
         transform.forward = Vector3.Slerp(transform.forward, physic.velocity.normalized, 0.1f);
     }
 
     void AddForceToArrow()
     {
         physic.AddForce(direction * arrowSpeed);
-        Debug.Log("alooo");
-        GetComponent<CameraTrackArrow>().TrackArrow();
-
 
         if (arrowSpeed > 0)
         {
@@ -44,10 +40,16 @@ public class ArrowController : MonoBehaviour
 
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         Physics.Raycast(new Ray(arrowOutPos.transform.position + new Vector3(0.3f, 0.2f, 0f), ray.direction), out hit);
+        Physics.Raycast(ray, out hit2);
         direction = (hit.point - arrowOutPos.transform.position).normalized;
         arrowPower = 10;
         isArrowShooted = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
+        if (hit2.transform.tag == "Enemy")
+        {
+            GetComponent<CameraTrackArrow>().enabled = true;
+            GetComponent<CameraTrackArrow>().TrackArrow();
+        }
     }
 
     public void ResetArrow()
@@ -56,6 +58,7 @@ public class ArrowController : MonoBehaviour
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().isTrigger = true;
         transform.GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<CameraTrackArrow>().enabled = false;
     }
 
     void OnCollisionEnter(Collision col)
@@ -68,6 +71,7 @@ public class ArrowController : MonoBehaviour
                 col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower);
             }
         }
+        GetComponent<CameraTrackArrow>().ExitTrackArrow();
         arrowSpeed = 0f;
     }
 

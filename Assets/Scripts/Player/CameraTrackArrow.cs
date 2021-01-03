@@ -3,27 +3,32 @@
 public class CameraTrackArrow : MonoBehaviour
 {
     private GameObject characterCamera;
+    private GameObject cam1;
+    private GameObject player;
+    private GameObject gameMode;
 
-    private GameObject TrackPos;
-
-private GameObject arrow;
-private GameObject cam1;
-private GameObject player;
-   public void Start()
+    public void Start()
     {
         characterCamera = GameObject.FindGameObjectWithTag("CharacterCamera");
-        TrackPos = GameObject.FindGameObjectWithTag("TrackPos");
-                cam1 = characterCamera.transform.Find("Main Camera").gameObject;
-                                player = GameObject.FindGameObjectWithTag("Player");
-
+        gameMode = GameObject.FindGameObjectWithTag("GameMode");
+        cam1 = characterCamera.transform.Find("Main Camera").gameObject;
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+    private void Update()
+    {
+        cam1.transform.position = Vector3.Lerp(cam1.transform.position, transform.position, 0.05f);
     }
 
     public void TrackArrow()
     {
-player.GetComponent<CharacterController>().enabled = false;
+        gameMode.GetComponent<SlowMotion>().DoSlowMotion();
+        player.GetComponent<CharacterController>().enabled = false;
         //trackCamera.transform.rotation = Quaternion.Euler(verticalMouse, horizontalMouse, transform.eulerAngles.z);
-        cam1.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z+5);
-
+    }
+    public void ExitTrackArrow()
+    {
+        gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
+        player.GetComponent<CharacterController>().enabled = true;
     }
 
 }

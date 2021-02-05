@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class InputController : MonoBehaviour
 {
     private float vertical = 0f, horizontal = 0f;
     private float verticalMouse = 0f, horizontalMouse = 0f;
-    private bool isMouseClicked;   
+    private bool isMouseClicked;
+    private bool isSprinting;
  
 
     public float[] GetMovementInputs()
@@ -23,6 +24,15 @@ public class PlayerInput : MonoBehaviour
 
         float[] inputs = {verticalMouse, horizontalMouse };
         return inputs;
+    }
+
+    public bool GetSprintInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) isSprinting = true;
+
+        else if (Input.GetKeyUp(KeyCode.LeftShift)) isSprinting = false;
+
+        return isSprinting;
     }
 
     public bool GetMouseClickInf()

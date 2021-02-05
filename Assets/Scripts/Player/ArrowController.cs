@@ -5,7 +5,7 @@ public class ArrowController : MonoBehaviour
     private GameObject arrowOutPos;
     private Rigidbody physic;
     private Vector3 direction;
-    private float arrowSpeed = 2f;
+    private float arrowSpeed = 1f;
     private bool isArrowShooted = false;
     private RaycastHit hit, hit2;
     private int arrowPower = 0;
@@ -54,7 +54,7 @@ public class ArrowController : MonoBehaviour
 
     public void ResetArrow()
     {
-        arrowSpeed = 2f;
+        arrowSpeed = 1f;
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().isTrigger = true;
         transform.GetComponent<Rigidbody>().isKinematic = true;
@@ -72,7 +72,7 @@ public class ArrowController : MonoBehaviour
             }
         }
         GetComponent<CameraTrackArrow>().ExitTrackArrow();
-        arrowSpeed = 0f;
+        Destroy(this.gameObject);
     }
 
     void OnTriggerExit(Collider col)

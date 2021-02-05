@@ -90,7 +90,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (isHit == 0)
                 {
-                    col.gameObject.GetComponent<CharacterController>().TakeDamage(10);
+              //      col.gameObject.GetComponent<CharacterController>().TakeDamage(10);
                     isHit = 1;
                 }
             }

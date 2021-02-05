@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] [Range(0.0f, 3.0f)] private float CharacterMovementSpeed, CharacterRotationSpeed;
@@ -22,17 +22,16 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        GetComponent<CameraController>().handleCameraMovement();
-        CharacterMovementSpeed = GetComponent<PlayerMovement>().HandleRun(CharacterMovementSpeed);
-        GetComponent<PlayerMovement>().handleJump();
         GetComponent<ShootArrow>().HandleShootArrow();
+        GetComponent<PlayerMovement>().HandleMovement();
+        GetComponent<CameraController>().handleCameraMovement();
+
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        GetComponent<PlayerMovement>().handleMovement(CharacterMovementSpeed, CharacterRotationSpeed);
     }
-    
+
     public void TakeDamage(int damage)
     {
         currentHealt -= damage;

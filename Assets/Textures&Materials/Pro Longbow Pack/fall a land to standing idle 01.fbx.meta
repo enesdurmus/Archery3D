@@ -59,8 +59,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: FinishJumpAnim
+      - time: 0.7538461
+        functionName: JumpFinish
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -880,7 +880,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

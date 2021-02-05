@@ -129,6 +129,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1072815586}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &265473872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265473862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb398f80182118b44b763fb91266552c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpSpeed: 1
+  jumpAnimParameter: isJumping
 --- !u!1 &280728532
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,11 +750,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1626808276083128477, guid: 958da787c19d0324289af40eea486295,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
     - target: {fileID: 1626808276083128478, guid: 958da787c19d0324289af40eea486295,
         type: 3}
       propertyPath: healtBar
@@ -751,11 +760,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: akai_e_espiritu
       objectReference: {fileID: 0}
-    - target: {fileID: 2766493904911803444, guid: 958da787c19d0324289af40eea486295,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 768630a07c8131843a47d384fd7fcc56, type: 2}
     - target: {fileID: 4845588348572748197, guid: 958da787c19d0324289af40eea486295,
         type: 3}
       propertyPath: characterCamera
@@ -766,11 +770,26 @@ PrefabInstance:
       propertyPath: crossHair
       value: 
       objectReference: {fileID: 822743740}
-    - target: {fileID: 6092997168230197406, guid: 958da787c19d0324289af40eea486295,
+    - target: {fileID: 4845588348572748199, guid: 958da787c19d0324289af40eea486295,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845588348572748200, guid: 958da787c19d0324289af40eea486295,
+        type: 3}
+      propertyPath: cam
       value: 
-      objectReference: {fileID: 2100000, guid: 7682ae50f3c885a4588cb80ef6ce7db2, type: 2}
+      objectReference: {fileID: 1144944106}
+    - target: {fileID: 4845588348572748200, guid: 958da787c19d0324289af40eea486295,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845588348572748200, guid: 958da787c19d0324289af40eea486295,
+        type: 3}
+      propertyPath: sprintSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 958da787c19d0324289af40eea486295, type: 3}
 --- !u!1 &1074883592
@@ -784,6 +803,7 @@ GameObject:
   - component: {fileID: 1074883595}
   - component: {fileID: 1074883594}
   - component: {fileID: 1074883593}
+  - component: {fileID: 1074883596}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -849,6 +869,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1074883596
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074883592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1144944106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7381022493667454172, guid: b81422529117f244bb08ccb7d61741ff,
@@ -1440,6 +1479,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 265473862}
+    - target: {fileID: 5821642592515001372, guid: 4c4d467ac6cc9c34886b1968de8a5815,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6287051925747231730, guid: 4c4d467ac6cc9c34886b1968de8a5815,
         type: 3}
       propertyPath: m_LocalPosition.x

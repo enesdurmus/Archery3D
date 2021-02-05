@@ -3,62 +3,82 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public CharacterController control;
+
+    public Transform cam;
+
+    [SerializeField] private float walkSpeed = 1, sprintSpeed = 3;
+
+    [SerializeField] private float turnSmoothTime = 0.1f;
+
+    private float speed = 0, maxSpeed;
+
     private float vertical = 0, horizontal = 0;
-    private Rigidbody physic;
+
     private Animator CharacterAnimator;
+
+    float turnSmoothVelocity;
 
     void Start()
     {
-        physic = GetComponent<Rigidbody>();
         CharacterAnimator = GetComponent<Animator>();
     }
 
-    public void handleMovement(float CharacterMovementSpeed, float CharacterRotationSpeed)
+    public void HandleMovement()
     {
-        float[] movementInputs = GetComponent<PlayerInput>().GetMovementInputs();
+        float[] movementInputs = GetComponent<InputController>().GetMovementInputs();
         vertical = movementInputs[0];
         horizontal = movementInputs[1];
-        Vector3 vectorX = transform.forward * vertical * CharacterMovementSpeed;
-        vectorX.y = physic.velocity.y;
-        Vector3 vectorZ = transform.right * horizontal * CharacterRotationSpeed;
 
-        physic.velocity = vectorX + vectorZ;
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        CharacterAnimator.SetFloat("HorizontalAnim", horizontal);
-        CharacterAnimator.SetFloat("VerticalAnim", vertical);
-    }
+        FindMaxSpeed();
 
-    public float HandleRun(float CharacterMovementSpeed)
-    {
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            HandleMoveSpeed();
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            control.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+        else HandleStopSpeed();
+
         if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerSimple")
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                CharacterAnimator.SetBool("RunAnim", true);
-                CharacterMovementSpeed *= 2f;
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                CharacterAnimator.SetBool("RunAnim", false);
-                CharacterMovementSpeed /= 2f;
-            }
+            CharacterAnimator.SetFloat("speed", speed);
         }
-        return CharacterMovementSpeed;
-    }
-
-    public void handleJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        else
         {
-            CharacterAnimator.SetBool("JumpAnim", true);
-            physic.AddForce(0, 750, 0);
+            CharacterAnimator.SetFloat("vertical", vertical);
+            CharacterAnimator.SetFloat("horizontal", horizontal);
+        }
+
+    }
+
+    private void FindMaxSpeed()
+    {
+        if (GetComponent<InputController>().GetSprintInput()) maxSpeed = sprintSpeed;
+        else maxSpeed = walkSpeed;
+    }
+
+    private void HandleMoveSpeed()
+    {
+        if (speed < maxSpeed) speed += 0.1f;
+
+        else if (speed > maxSpeed) speed -= 0.1f;
+    }
+
+    private void HandleStopSpeed()
+    {
+        if (speed > 0)
+        {
+            speed -= 0.12f;
         }
     }
-
-    public void FinishJumpAnim()
-    {
-        CharacterAnimator.SetBool("JumpAnim", false);
-    }
-
-
 }

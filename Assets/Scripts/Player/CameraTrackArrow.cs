@@ -16,19 +16,24 @@ public class CameraTrackArrow : MonoBehaviour
     }
     private void Update()
     {
-        cam1.transform.position = Vector3.Lerp(cam1.transform.position, transform.position, 0.05f);
+        cam1.transform.position = Vector3.Lerp(cam1.transform.position, transform.position, 0.015f);
     }
 
     public void TrackArrow()
     {
-        gameMode.GetComponent<SlowMotion>().DoSlowMotion();
-        player.GetComponent<CharacterController>().enabled = false;
-        //trackCamera.transform.rotation = Quaternion.Euler(verticalMouse, horizontalMouse, transform.eulerAngles.z);
+        if (gameMode != null)
+        {
+            gameMode.GetComponent<SlowMotion>().DoSlowMotion();
+            player.GetComponent<CharacterController>().enabled = false;
+        }
     }
     public void ExitTrackArrow()
     {
-        gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
-        player.GetComponent<CharacterController>().enabled = true;
+        if (gameMode != null)
+        {
+            gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
+            player.GetComponent<CharacterController>().enabled = true;
+        }
     }
 
 }

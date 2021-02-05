@@ -31,23 +31,20 @@ public class CameraController : MonoBehaviour
     {
         crossHair.SetActive(false);
 
-        float[] cameraInputs = GetComponent<PlayerInput>().GetCameraInputs();
+        float[] cameraInputs = GetComponent<InputController>().GetCameraInputs();
         verticalMouse = cameraInputs[0];
         horizontalMouse = cameraInputs[1];
 
         characterCamera.transform.rotation = Quaternion.Euler(verticalMouse, horizontalMouse, transform.eulerAngles.z);
         characterCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
 
-        float[] playerInputs = GetComponent<PlayerInput>().GetMovementInputs();
-        isMouseClicked = GetComponent<PlayerInput>().GetMouseClickInf();
+        float[] playerInputs = GetComponent<InputController>().GetMovementInputs();
+        isMouseClicked = GetComponent<InputController>().GetMouseClickInf();
 
         if (isMouseClicked){
             crossHair.SetActive(true);
             cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.015f);
             cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos2.transform.rotation, 0.01f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
-        }
-        else if(playerInputs[1] != 0 || playerInputs[0] != 0){
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
         }
         else{

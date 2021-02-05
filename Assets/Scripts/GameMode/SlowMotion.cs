@@ -22,6 +22,5 @@ public class SlowMotion : MonoBehaviour
     public void ExitSlowMotion()
     {
         Time.timeScale = 1f;
-        Time.fixedDeltaTime = 1f;
     }
 }

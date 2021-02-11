@@ -12,7 +12,10 @@ public class ShootArrow : MonoBehaviour
     private bool isMouseClicked;
     private bool drawControl = false;
     private bool isArrowCreated = false;
- 
+    private bool isArrowReleased = true;
+
+
+
     private void Start()
     {
         CharacterAnimator = GetComponent<Animator>();
@@ -25,6 +28,7 @@ public class ShootArrow : MonoBehaviour
         CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
         drawControl = false;
         arrowTrigger.SetActive(false);
+        isArrowReleased = true;
     }
 
     private void DrawBow()
@@ -40,6 +44,7 @@ public class ShootArrow : MonoBehaviour
                 Bow.GetComponent<BowController>().CreateArrow();
                 CharacterAnimator.runtimeAnimatorController = whileAimingAnimatorController;
                 isArrowCreated = true;
+                isArrowReleased = false;
             }
             if (CharacterAnimator.GetBool("ShootArrow") == false){ 
                 DrawBow();
@@ -47,9 +52,10 @@ public class ShootArrow : MonoBehaviour
             }
         }
         else{
-            if(drawControl == true) {
+            if(drawControl == true && isArrowReleased == false) {
+                isArrowReleased = true;
                 arrowTrigger.SetActive(true);
-                Bow.GetComponent<BowController>().shootArrow(10f);
+                Bow.GetComponent<BowController>().ShootArrow(10f);
                 CharacterAnimator.SetBool("ShootArrow", true);
                 isArrowCreated = false;
             }

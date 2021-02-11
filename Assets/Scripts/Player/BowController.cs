@@ -25,7 +25,7 @@ public class BowController : MonoBehaviour
         arrow.SetActive(true);
     }
 
-    public void shootArrow(float attackPower)
+    public void ShootArrow(float attackPower)
     {
         if(arrow != null)
         {

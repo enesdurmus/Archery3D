@@ -32,11 +32,12 @@ public class EnemyController : MonoBehaviour
             AttackControl();
         }
     }
+
     IEnumerator WaitForSeconds(float time)
     {
         yield return new WaitForSeconds(time);
-
     }
+
     public void AttackControl()
     {
         if (Vector3.Distance(player.transform.position, transform.position) <= 1.5f && enemyAnimator.GetBool("isEnemyAttacked") == false)
@@ -79,6 +80,7 @@ public class EnemyController : MonoBehaviour
             enemyAnimator.SetBool("enemyDie", true);
             GetComponent<EnemyMovementAI>().enabled = false;
             GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+            Debug.Log("girdim, aq");
         }
     }
 
@@ -90,7 +92,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (isHit == 0)
                 {
-              //      col.gameObject.GetComponent<CharacterController>().TakeDamage(10);
+                    col.gameObject.GetComponent<PlayerController>().TakeDamage(10);
                     isHit = 1;
                 }
             }
@@ -120,7 +122,6 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetBool("isEnemyAttacked", false);
         GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
         isHit = 0;
-        Debug.Log("girdimi");
     }
 
     public void StartWalkingAnim()
@@ -131,8 +132,6 @@ public class EnemyController : MonoBehaviour
     public void StartReactAnim()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
-        Debug.Log("girdimi3");
-
     }
 
     public void EndReactAnim()

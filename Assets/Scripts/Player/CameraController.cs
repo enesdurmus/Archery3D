@@ -43,13 +43,13 @@ public class CameraController : MonoBehaviour
 
         if (isMouseClicked){
             crossHair.SetActive(true);
-            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.015f);
-            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos2.transform.rotation, 0.01f);
+            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.1f);
+            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos2.transform.rotation, 0.1f);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
         }
         else{
-            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, 0.015f);
-            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos1.transform.rotation, 0.01f);
+            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, 0.1f);
+            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos1.transform.rotation, 0.1f);
         }
     }
 }

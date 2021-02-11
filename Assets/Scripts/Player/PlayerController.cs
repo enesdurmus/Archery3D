@@ -23,13 +23,18 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GetComponent<ShootArrow>().HandleShootArrow();
+        GetComponent<Jump>().HandleJump();
         GetComponent<PlayerMovement>().HandleMovement();
-        GetComponent<CameraController>().handleCameraMovement();
 
+    }
+
+    private void FixedUpdate()
+    {
     }
 
     private void LateUpdate()
     {
+        GetComponent<CameraController>().handleCameraMovement();
     }
 
     public void TakeDamage(int damage)

@@ -22,7 +22,7 @@ public class Jump : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void Update()
+    public void HandleJump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
             DoJump();

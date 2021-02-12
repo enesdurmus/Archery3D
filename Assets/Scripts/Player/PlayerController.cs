@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         GetComponent<ShootArrow>().HandleShootArrow();
-        GetComponent<Jump>().HandleJump();
         GetComponent<PlayerMovement>().HandleMovement();
 
     }

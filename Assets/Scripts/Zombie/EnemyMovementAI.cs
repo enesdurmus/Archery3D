@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovementAI : MonoBehaviour, IMovable
+public class EnemyMovementAI : MonoBehaviour
 {
     [SerializeField] private GameObject target;
-    private Rigidbody physic;
     NavMeshAgent agent;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        physic = GetComponent<Rigidbody>();
     }
 
 

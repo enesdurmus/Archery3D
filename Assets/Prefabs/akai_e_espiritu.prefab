@@ -862,7 +862,6 @@ GameObject:
   - component: {fileID: 4845588348572748197}
   - component: {fileID: 4845588348572748198}
   - component: {fileID: 4845588348572748199}
-  - component: {fileID: 265473872}
   m_Layer: 0
   m_Name: akai_e_espiritu
   m_TagString: Player
@@ -999,20 +998,6 @@ MonoBehaviour:
     type: 2}
   simpleAnimatorController: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64,
     type: 2}
---- !u!114 &265473872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896855830273492417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb398f80182118b44b763fb91266552c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpSpeed: 1
-  jumpAnimParameter: isJumping
 --- !u!1 &1969730103700283024
 GameObject:
   m_ObjectHideFlags: 0

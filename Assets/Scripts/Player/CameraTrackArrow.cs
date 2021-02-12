@@ -1,39 +1,70 @@
 ﻿using UnityEngine;
+using System.Collections;
+
 
 public class CameraTrackArrow : MonoBehaviour
 {
     private GameObject characterCamera;
-    private GameObject cam1;
+    private GameObject cam, trackPos;
     private GameObject player;
     private GameObject gameMode;
+    private bool isArrowTracking;
+    private bool isHitEnemy;
+
 
     public void Start()
     {
         characterCamera = GameObject.FindGameObjectWithTag("CharacterCamera");
         gameMode = GameObject.FindGameObjectWithTag("GameMode");
-        cam1 = characterCamera.transform.Find("Main Camera").gameObject;
+        cam = characterCamera.transform.Find("Main Camera").gameObject;
+        trackPos = transform.Find("TrackPos").gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        cam1.transform.position = Vector3.Lerp(cam1.transform.position, transform.position, 0.015f);
+        if (isArrowTracking)
+        {
+            CamMove();
+        }
+        if (isHitEnemy)
+        {
+            CamMoveHit();
+        }
     }
 
+    private IEnumerator ExitTrack(float time)
+    {
+        yield return new WaitForSeconds(time);
+        gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
+        player.GetComponent<PlayerController>().enabled = true;
+        isHitEnemy = false;
+    }
+
+    private void CamMove()
+    {
+        cam.transform.position = Vector3.Lerp(cam.transform.position, trackPos.transform.position, 0.015f);
+        cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, trackPos.transform.rotation, 0.005f);
+    }
+
+    private void CamMoveHit()
+    {
+        cam.transform.position = Vector3.Lerp(cam.transform.position, trackPos.transform.position, 0.05f);
+        cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, trackPos.transform.rotation, 0.05f);
+    }
     public void TrackArrow()
     {
-        if (gameMode != null)
-        {
-            gameMode.GetComponent<SlowMotion>().DoSlowMotion();
-            player.GetComponent<CharacterController>().enabled = false;
-        }
+        isArrowTracking = true;
+        gameMode.GetComponent<SlowMotion>().DoSlowMotion();
+        player.GetComponent<PlayerController>().enabled = false;
     }
-    public void ExitTrackArrow()
+    public void ExitTrackArrow(GameObject trackPos)
     {
-        if (gameMode != null)
+        if (isArrowTracking)
         {
-            gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
-            player.GetComponent<CharacterController>().enabled = true;
+            isArrowTracking = false;
+            isHitEnemy = true;
+            this.trackPos = trackPos;
+            StartCoroutine(ExitTrack(1.5f));
         }
     }
-
 }

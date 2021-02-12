@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
+    [SerializeField] private float arrowSpeed = 18f;
+    [SerializeField] private int arrowPower = 10;
+    [SerializeField] private float slowFactor = 0.01f;
     private GameObject arrowOutPos;
     private Rigidbody physic;
     private Vector3 direction;
-    private float arrowSpeed = 18f;
     private bool isArrowShooted = false;
     private RaycastHit hit, hit2;
-    private int arrowPower = 0;
+    private GameObject mainCam;
 
     private void Start()
     {
         arrowOutPos = GameObject.FindGameObjectWithTag("ArrowPosTag");
         physic = GetComponent<Rigidbody>();
+        mainCam = Camera.main.gameObject;
     }
 
     private void FixedUpdate()
@@ -32,39 +35,38 @@ public class ArrowController : MonoBehaviour
 
         if (arrowSpeed > 0)
         {
-            arrowSpeed -= 0.01f;
+            arrowSpeed -= slowFactor;
         }
     }
 
     public void InputUpdates(float attackPower)
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Physics.Raycast(new Ray(arrowOutPos.transform.position + new Vector3(0.35f, 0.3f, 0f), ray.direction), out hit);
+        Physics.Raycast(new Ray(mainCam.transform.position, ray.direction), out hit);
         direction = (hit.point - arrowOutPos.transform.position).normalized;
-        arrowPower = 10;
         isArrowShooted = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
 
         if (hit.transform.tag == "Enemy")
         {
-            Debug.Log("naber");
             GetComponent<CameraTrackArrow>().enabled = true;
+            hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
             GetComponent<CameraTrackArrow>().TrackArrow();
         }
     }
 
-    public void ResetArrow()
+   /* public void ResetArrow()
     {
         arrowSpeed = 1f;
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().isTrigger = true;
         transform.GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<CameraTrackArrow>().enabled = false;
-    }
+    }*/
 
     IEnumerator DestroyArrow(float time)
     {
-        GetComponent<CameraTrackArrow>().ExitTrackArrow();
+     //   GetComponent<CameraTrackArrow>().ExitTrackArrow();
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
@@ -75,11 +77,12 @@ public class ArrowController : MonoBehaviour
         {
             if (col.gameObject.name == "zombie")
             {
+                hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
                 col.gameObject.GetComponent<BloodSplash>().Splash(transform.position);
                 col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower);
-                GetComponent<CameraTrackArrow>().ExitTrackArrow();
             }
         }
+        GetComponent<CameraTrackArrow>().ExitTrackArrow(col.transform.Find("ZombieSlowPos").gameObject);
         StickArrow(col);
         //StartCoroutine(DestroyArrow(2f));
     }
@@ -94,7 +97,6 @@ public class ArrowController : MonoBehaviour
 
     private void StickArrow(Collision col)
     {
-        Debug.Log("giriyormu");
         physic.isKinematic = true;
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().enabled = false;

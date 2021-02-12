@@ -8,8 +8,8 @@ TagManager:
   - CharacterCamera
   - TrackPos
   - empty
-  - Enemy
   - GameMode
+  - Enemy
   layers:
   - Default
   - TransparentFX

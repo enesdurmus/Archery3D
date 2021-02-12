@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float turnSmoothTime = 0.1f;
 
+    Vector3 moveDirection;
+
+    float gravity = -9.81f;
+
     private float speed = 0, maxSpeed;
 
     private float vertical = 0, horizontal = 0;
@@ -67,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
             CharacterAnimator.SetFloat("vertical", vertical);
             CharacterAnimator.SetFloat("horizontal", horizontal);
         }
+
+        moveDirection.y += gravity * Time.deltaTime;
+        control.Move(moveDirection * Time.deltaTime);
 
     }
 

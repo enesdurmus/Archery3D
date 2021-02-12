@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class PickUp : MonoBehaviour
-{
+{/*
     private RaycastHit hit;
     private float distance = 2f;
     private GameObject character;
@@ -28,5 +28,5 @@ public class PickUp : MonoBehaviour
             
         }
         
-    }
+    }*/
 }

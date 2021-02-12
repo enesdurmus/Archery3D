@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+
+    [SerializeField] private GameObject player;
+    [SerializeField] public float attackPower { get; set; }
+
+
     private Animator enemyAnimator;
     private bool isEnemyRoared = false;
-    [SerializeField] private GameObject player;
-
-    public float attackPower { get; set; }
-
     public HealtBar healtBar;
     public int maxHealt = 100;
     private int currentHealt;
@@ -45,11 +47,6 @@ public class EnemyController : MonoBehaviour
             enemyAnimator.SetBool("isEnemyAttacked", true);
         }
 
-        else
-        {
-            enemyAnimator.SetBool("isEnemyAttacked", false);
-        }
-
         if (!isEnemyRoared)
         {
             if (Vector3.Distance(player.transform.position, transform.position) <= 7f)
@@ -80,7 +77,6 @@ public class EnemyController : MonoBehaviour
             enemyAnimator.SetBool("enemyDie", true);
             GetComponent<EnemyMovementAI>().enabled = false;
             GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
-            Debug.Log("girdim, aq");
         }
     }
 
@@ -119,14 +115,12 @@ public class EnemyController : MonoBehaviour
 
     public void FinishAttackAnim()
     {
+        if (!(Vector3.Distance(player.transform.position, transform.position) <= 1.5f))
+        {
+            GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
+        }
         enemyAnimator.SetBool("isEnemyAttacked", false);
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
         isHit = 0;
-    }
-
-    public void StartWalkingAnim()
-    {
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(1f);
     }
 
     public void StartReactAnim()
@@ -137,11 +131,15 @@ public class EnemyController : MonoBehaviour
     public void EndReactAnim()
     {
         enemyAnimator.SetBool("enemyReact", false);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(1f);
+
     }
     public void ZombieDieAnimEnd()
     {
-        GetComponent<Rigidbody>().isKinematic = true;
         GetComponentInChildren<CapsuleCollider>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
+        GetComponent<EnemyController>().enabled = false;
+        GetComponent<Animator>().enabled = false;
     }
 
 

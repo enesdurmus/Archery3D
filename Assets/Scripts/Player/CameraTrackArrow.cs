@@ -34,6 +34,7 @@ public class CameraTrackArrow : MonoBehaviour
 
     private IEnumerator ExitTrack(float time)
     {
+        gameMode.GetComponent<SlowMotion>().DoSlowMotion(0.8f);
         yield return new WaitForSeconds(time);
         gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
         player.GetComponent<PlayerController>().enabled = true;

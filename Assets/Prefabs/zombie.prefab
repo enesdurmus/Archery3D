@@ -244,7 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed087ec4d793ac4388ad610ec8e9fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &1235820771
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,13 +342,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270012170}
-  m_LocalRotation: {x: 0.15767351, y: -0, z: -0, w: 0.9874913}
-  m_LocalPosition: {x: 0, y: 2.66, z: -4.7699966}
+  m_LocalRotation: {x: 0.20730157, y: 0.35507262, z: -0.04708171, w: 0.91034764}
+  m_LocalPosition: {x: -3.9899979, y: 3.42, z: -4.1100006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6287051925747231730}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 18.144, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.259, y: 43.447, z: 3.867}
 --- !u!1 &1634107723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,7 +2432,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2457,7 +2456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b6033ef33f9e84ba4270cfc7be1af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &5821642592515001360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2470,7 +2468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e234fbbcb54d8444e95f02562519311f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   healtBar: {fileID: 443437845}
   maxHealt: 10
 --- !u!114 &2116846476

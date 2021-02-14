@@ -6,19 +6,24 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
 
-    [SerializeField] private GameObject player;
-    [SerializeField] public float attackPower { get; set; }
-
-
+    private GameObject player;
     private Animator enemyAnimator;
-    private bool isEnemyRoared = false;
+    private GameObject gameMode;
+
     public HealtBar healtBar;
+
+    public float attackPower { get; set; }
     public int maxHealt = 100;
+
+    private bool isEnemyRoared = false;
     private int currentHealt;
     private int isHit = 0;
 
+
     void Start()
     {
+        gameMode = GameObject.FindGameObjectWithTag("GameMode");
+        player = GameObject.FindGameObjectWithTag("Player");
         enemyAnimator = GetComponent<Animator>();
         currentHealt = maxHealt;
         healtBar.SetMaxHealt(maxHealt);
@@ -61,7 +66,6 @@ public class EnemyController : MonoBehaviour
         currentHealt -= damage;
         healtBar.SetHealt(currentHealt);
         EnemyDie();
-
         if (currentHealt != 0)
         {
             enemyAnimator.SetBool("enemyReact", true);
@@ -74,25 +78,30 @@ public class EnemyController : MonoBehaviour
     {
         if (currentHealt == 0)
         {
+            gameMode.GetComponent<GameControl>().SetKillEnemyCount();
             enemyAnimator.SetBool("enemyDie", true);
             GetComponent<EnemyMovementAI>().enabled = false;
             GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    private void OnCollisionEnter(Collision col)
     {
-        if (enemyAnimator.GetBool("isEnemyAttacked"))
+        if (enemyAnimator != null)
         {
-            if (col.gameObject.name == "akai_e_espiritu")
+            if (enemyAnimator.GetBool("isEnemyAttacked"))
             {
-                if (isHit == 0)
+                if (col.gameObject.name == "akai_e_espiritu")
                 {
-                    col.gameObject.GetComponent<PlayerController>().TakeDamage(10);
-                    isHit = 1;
+                    if (isHit == 0)
+                    {
+                        col.gameObject.GetComponent<PlayerController>().TakeDamage(10);
+                        isHit = 1;
+                    }
                 }
             }
         }
+
     }
 
     public void ZombieScreamAnimFinish()

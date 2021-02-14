@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public HealtBar healtBar;
     private int maxHealt = 100;
     private int currentHealt;
-    private RaycastHit hit;
+
     void Start()
     {
         currentHealt = maxHealt;
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         GetComponent<CameraController>().handleCameraMovement();
+
     }
 
     public void TakeDamage(int damage)

@@ -6,12 +6,11 @@ public class BloodSplash : MonoBehaviour
 
     [SerializeField] private Vector3 offSet;
 
-
     private GameObject blood;
 
     public void Splash(Vector3 hitPoint)
     {
         blood = Instantiate(bloodPrefab, hitPoint - offSet, Quaternion.identity);
-        blood.GetComponent<ParticleSystem>().Play();
+       // blood.GetComponent<ParticleSystem>().Play();
     }
 }

@@ -5,11 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyMovementAI : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
+    private GameObject target;
     NavMeshAgent agent;
 
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -19,8 +20,8 @@ public class EnemyMovementAI : MonoBehaviour
         agent.destination = target.transform.position; 
     }
 
-    public void SetEnemySpeed(float speed){
-
+    public void SetEnemySpeed(float speed)
+    {
         agent.speed = speed;
     }
 }

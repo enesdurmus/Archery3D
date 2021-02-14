@@ -55,36 +55,28 @@ public class ArrowController : MonoBehaviour
         }
     }
 
-   /* public void ResetArrow()
-    {
-        arrowSpeed = 1f;
-        isArrowShooted = false;
-        GetComponent<CapsuleCollider>().isTrigger = true;
-        transform.GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<CameraTrackArrow>().enabled = false;
-    }*/
-
     IEnumerator DestroyArrow(float time)
     {
-     //   GetComponent<CameraTrackArrow>().ExitTrackArrow();
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
 
     void OnCollisionEnter(Collision col)
     {
+        Debug.Log(col.transform.name);
+
         if (arrowSpeed > 0)
         {
-            if (col.gameObject.name == "zombie")
+            if (col.gameObject.tag == "Enemy")
             {
                 hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
                 col.gameObject.GetComponent<BloodSplash>().Splash(transform.position);
                 col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower);
+                GetComponent<CameraTrackArrow>().ExitTrackArrow(col.transform.Find("ZombieSlowPos").gameObject);
             }
         }
-        GetComponent<CameraTrackArrow>().ExitTrackArrow(col.transform.Find("ZombieSlowPos").gameObject);
         StickArrow(col);
-        //StartCoroutine(DestroyArrow(2f));
+        StartCoroutine(DestroyArrow(10f));
     }
 
     void OnTriggerExit(Collider col)

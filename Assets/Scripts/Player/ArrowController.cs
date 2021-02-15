@@ -63,17 +63,16 @@ public class ArrowController : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log(col.transform.name);
-
         if (arrowSpeed > 0)
         {
             if (col.gameObject.tag == "Enemy")
             {
-                hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
                 col.gameObject.GetComponent<BloodSplash>().Splash(transform.position);
                 col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower);
-                GetComponent<CameraTrackArrow>().ExitTrackArrow(col.transform.Find("ZombieSlowPos").gameObject);
             }
+            if (hit.transform.tag == "Enemy") 
+                hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
+            GetComponent<CameraTrackArrow>().ExitTrackArrow();
         }
         StickArrow(col);
         StartCoroutine(DestroyArrow(10f));

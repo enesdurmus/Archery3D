@@ -68,4 +68,13 @@ public class CameraTrackArrow : MonoBehaviour
             StartCoroutine(ExitTrack(1.5f));
         }
     }
+
+    public void ExitTrackArrow()
+    {
+        if (isArrowTracking)
+        {
+            isArrowTracking = false;
+            StartCoroutine(ExitTrack(0f));
+        }
+    }
 }

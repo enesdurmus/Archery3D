@@ -17,7 +17,8 @@ public class EnemyMovementAI : MonoBehaviour
 
     public void handleMovement()
     {
-        agent.destination = target.transform.position; 
+        if (target != null)
+            agent.destination = target.transform.position;
     }
 
     public void SetEnemySpeed(float speed)

@@ -9,19 +9,30 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
     private Animator enemyAnimator;
     private GameObject gameMode;
+    private bool isEnemyRoared = false;
+    private int currentHealt;
+    private int isHit = 0;
+    private bool isDead = false;
+
+    private Collider mainCollider;
+    private Collider[] allColliders;
+    private Rigidbody[] allRigidBodies;
+    private Rigidbody mainRigidBody;
 
     public HealtBar healtBar;
 
     public float attackPower { get; set; }
     public int maxHealt = 100;
 
-    private bool isEnemyRoared = false;
-    private int currentHealt;
-    private int isHit = 0;
 
 
-    void Start()
+    void Awake()
     {
+        mainCollider = GetComponent<Collider>();
+        allColliders = GetComponentsInChildren<Collider>();
+        allRigidBodies = GetComponentsInChildren<Rigidbody>();
+        mainRigidBody = GetComponent<Rigidbody>();
+        DoRagdoll(false);
         gameMode = GameObject.FindGameObjectWithTag("GameMode");
         player = GameObject.FindGameObjectWithTag("Player");
         enemyAnimator = GetComponent<Animator>();
@@ -32,7 +43,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        GetComponent<EnemyMovementAI>().handleMovement();
+        if(!isDead) GetComponent<EnemyMovementAI>().handleMovement();
 
         if (currentHealt > 0)
         {
@@ -40,9 +51,10 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForSeconds(float time)
+    IEnumerator DestroyEnemy(float time)
     {
         yield return new WaitForSeconds(time);
+        Destroy(this.gameObject);
     }
 
     public void AttackControl()
@@ -61,28 +73,48 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void DoRagdoll(bool isRagdoll)
+    {
+        foreach (Collider col in allColliders)
+            col.enabled = isRagdoll;
+        foreach (Rigidbody rb in allRigidBodies)
+            rb.isKinematic = !isRagdoll;
+
+        mainRigidBody.isKinematic = isRagdoll;
+        mainCollider.enabled = !isRagdoll;
+
+        GetComponent<Rigidbody>().useGravity = !isRagdoll;
+        GetComponent<Animator>().enabled = !isRagdoll;
+    }
+    public bool TakeDamage(int damage)
     {
         currentHealt -= damage;
         healtBar.SetHealt(currentHealt);
-        EnemyDie();
-        if (currentHealt != 0)
+        if (currentHealt == 0)
         {
-            enemyAnimator.SetBool("enemyReact", true);
+            isDead = true;
+            mainRigidBody.isKinematic = false;
+            EnemyDie();
+            DoRagdoll(true);
+            DestroyEnemy(10f);
         }
-
         Debug.Log(currentHealt);
+
+        return isDead;
     }
 
     public void EnemyDie()
     {
-        if (currentHealt == 0)
-        {
-            gameMode.GetComponent<GameControl>().SetKillEnemyCount();
-            enemyAnimator.SetBool("enemyDie", true);
-            GetComponent<EnemyMovementAI>().enabled = false;
-            GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
-        }
+        gameMode.GetComponent<GameControl>().SetKillEnemyCount();
+        GetComponent<EnemyMovementAI>().enabled = false;
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        GetComponent<NavMeshAgent>().enabled = false;
+    }
+
+    public void AddForceToBody(Vector3 direction)
+    {
+        foreach (Rigidbody rb in allRigidBodies)
+            rb.AddForce(direction * 50f, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision col)

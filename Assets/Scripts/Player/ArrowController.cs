@@ -10,7 +10,8 @@ public class ArrowController : MonoBehaviour
     private Rigidbody physic;
     private Vector3 direction;
     private bool isArrowShooted = false;
-    private RaycastHit hit, hit2;
+    private bool isHitEnemy = false;
+    private RaycastHit hit;
     private GameObject mainCam;
 
     private void Start()
@@ -68,11 +69,18 @@ public class ArrowController : MonoBehaviour
             if (col.gameObject.tag == "Enemy")
             {
                 col.gameObject.GetComponent<BloodSplash>().Splash(transform.position);
-                col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower);
+
+                if (col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower))
+                    col.gameObject.GetComponent<EnemyController>().AddForceToBody(direction);
+                
+                //isHitEnemy = true;
+               // GetComponent<CameraTrackArrow>().ExitTrackArrow(col.gameObject.transform.Find("ZombieSlowPos").gameObject);
             }
             if (hit.transform.tag == "Enemy") 
                 hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
-            GetComponent<CameraTrackArrow>().ExitTrackArrow();
+
+            if(!isHitEnemy)
+                GetComponent<CameraTrackArrow>().ExitTrackArrow();
         }
         StickArrow(col);
         StartCoroutine(DestroyArrow(10f));

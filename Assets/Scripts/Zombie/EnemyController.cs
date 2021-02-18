@@ -18,9 +18,9 @@ public class EnemyController : MonoBehaviour
     private Collider[] allColliders;
     private Rigidbody[] allRigidBodies;
     private Rigidbody mainRigidBody;
+    private AudioSource audioData;
 
     public HealtBar healtBar;
-
     public float attackPower { get; set; }
     public int maxHealt = 100;
 
@@ -28,6 +28,7 @@ public class EnemyController : MonoBehaviour
 
     void Awake()
     {
+        audioData = GetComponent<AudioSource>();
         mainCollider = GetComponent<Collider>();
         allColliders = GetComponentsInChildren<Collider>();
         allRigidBodies = GetComponentsInChildren<Rigidbody>();
@@ -90,6 +91,7 @@ public class EnemyController : MonoBehaviour
     {
         currentHealt -= damage;
         healtBar.SetHealt(currentHealt);
+        GetComponent<Animator>().SetBool("enemyReact", true);
         if (currentHealt == 0)
         {
             isDead = true;
@@ -103,18 +105,24 @@ public class EnemyController : MonoBehaviour
         return isDead;
     }
 
+    public int GetHealt()
+    {
+        return currentHealt;
+    }
+
     public void EnemyDie()
     {
         gameMode.GetComponent<GameControl>().SetKillEnemyCount();
         GetComponent<EnemyMovementAI>().enabled = false;
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
         GetComponent<NavMeshAgent>().enabled = false;
+        transform.Find("Canvas").Find("HealtBar").gameObject.SetActive(false);
     }
 
     public void AddForceToBody(Vector3 direction)
     {
         foreach (Rigidbody rb in allRigidBodies)
-            rb.AddForce(direction * 50f, ForceMode.Impulse);
+            rb.AddForce(direction * 25f, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision col)
@@ -142,10 +150,12 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetBool("isEnemyRoaring", false);
         enemyAnimator.SetBool("isEnemyRunning", true);
         isEnemyRoared = true;
+        audioData.Stop();
     }
 
     public void ZombieScreamAnimStart()
     {
+        audioData.Play(0);
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
     }
 

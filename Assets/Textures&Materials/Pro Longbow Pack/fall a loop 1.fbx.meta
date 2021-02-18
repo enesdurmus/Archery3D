@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 5ae428d673568f943a19b53fffca5403
+guid: 9170ee950f372504883f5bc7de905374
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: AimWalkBack
+    second: jump
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,25 +35,25 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: AimWalkBack
+      name: jump
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 44
+      lastFrame: 32
       wrapMode: 0
-      orientationOffsetY: -20
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 1
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -61,7 +61,7 @@ ModelImporter:
       events: []
       transformMask: []
       maskType: 3
-      maskSource: {fileID: 31900000, guid: f3df6a11ef35b7d43accb59451940c1d, type: 2}
+      maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
@@ -873,8 +873,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

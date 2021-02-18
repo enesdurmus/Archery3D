@@ -45,7 +45,7 @@ ModelImporter:
       takeName: mixamo.com
       internalID: 0
       firstFrame: 90
-      lastFrame: 140
+      lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -65,8 +65,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: finishShootAnim
+      - time: 0.33004928
+        functionName: FinishShootAnim
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -886,7 +886,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ec3474acb7ec50049b83c7f350e27b65,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1

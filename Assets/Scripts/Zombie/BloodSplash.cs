@@ -10,7 +10,7 @@ public class BloodSplash : MonoBehaviour
 
     public void Splash(Vector3 hitPoint)
     {
-        blood = Instantiate(bloodPrefab, hitPoint - offSet, Quaternion.identity);
+        blood = Instantiate(bloodPrefab, hitPoint, Quaternion.identity);
        // blood.GetComponent<ParticleSystem>().Play();
     }
 }

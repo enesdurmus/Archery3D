@@ -21,12 +21,11 @@ public class ArrowController : MonoBehaviour
         mainCam = Camera.main.gameObject;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isArrowShooted)
-        {
             AddForceToArrow();
-        }
+
         transform.forward = Vector3.Slerp(transform.forward, physic.velocity.normalized, 0.1f);
     }
 
@@ -48,7 +47,7 @@ public class ArrowController : MonoBehaviour
         isArrowShooted = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
 
-        if (hit.transform.tag == "Enemy")
+        if (hit.transform.tag == "Enemy" && hit.transform.gameObject.GetComponent<EnemyController>().GetHealt() == 10)
         {
             GetComponent<CameraTrackArrow>().enabled = true;
             hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
@@ -58,23 +57,27 @@ public class ArrowController : MonoBehaviour
 
     IEnumerator DestroyArrow(float time)
     {
+        gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
 
     void OnCollisionEnter(Collision col)
     {
+        Debug.Log(col.transform.name);
         if (arrowSpeed > 0)
         {
             if (col.gameObject.tag == "Enemy")
             {
-                col.gameObject.GetComponent<BloodSplash>().Splash(transform.position);
+                col.gameObject.GetComponent<BloodSplash>().Splash(transform.position + transform.forward.normalized * 2);
 
                 if (col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower))
-                    col.gameObject.GetComponent<EnemyController>().AddForceToBody(direction);
-                
+                {
+                    col.gameObject.GetComponent<EnemyController>().AddForceToBody(direction + new Vector3(0f, 30f, 0f).normalized);
+                    GetComponent<CameraTrackArrow>().ExitTrackArrow(col.gameObject.transform.Find("ZombieSlowPos").gameObject);
+                }
+
                 //isHitEnemy = true;
-               // GetComponent<CameraTrackArrow>().ExitTrackArrow(col.gameObject.transform.Find("ZombieSlowPos").gameObject);
             }
             if (hit.transform.tag == "Enemy") 
                 hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
@@ -100,5 +103,7 @@ public class ArrowController : MonoBehaviour
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().enabled = false;
         transform.SetParent(col.transform);
+        transform.Translate(transform.forward.normalized * 2);
     }
+
 }

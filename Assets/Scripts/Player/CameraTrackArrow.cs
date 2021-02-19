@@ -65,7 +65,7 @@ public class CameraTrackArrow : MonoBehaviour
             isArrowTracking = false;
             isHitEnemy = true;
             this.trackPos = trackPos;
-            StartCoroutine(ExitTrack(1.5f));
+            StartCoroutine(ExitTrack(1f));
         }
     }
 

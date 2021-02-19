@@ -57,7 +57,7 @@ BlendTree:
       type: 3}
     m_Threshold: 3
     m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.2
     m_CycleOffset: 0
     m_DirectBlendParameter: HorizontalAnim
     m_Mirror: 0

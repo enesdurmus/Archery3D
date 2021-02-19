@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
     private Collider[] allColliders;
     private Rigidbody[] allRigidBodies;
     private Rigidbody mainRigidBody;
-    private AudioSource audioData;
+    AudioSource[] audios;
 
     public HealtBar healtBar;
     public float attackPower { get; set; }
@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
 
     void Awake()
     {
-        audioData = GetComponent<AudioSource>();
+        audios = GetComponents<AudioSource>();
         mainCollider = GetComponent<Collider>();
         allColliders = GetComponentsInChildren<Collider>();
         allRigidBodies = GetComponentsInChildren<Rigidbody>();
@@ -76,16 +76,20 @@ public class EnemyController : MonoBehaviour
 
     public void DoRagdoll(bool isRagdoll)
     {
-        foreach (Collider col in allColliders)
-            col.enabled = isRagdoll;
+        GetComponent<Animator>().enabled = !isRagdoll;
+
+
         foreach (Rigidbody rb in allRigidBodies)
             rb.isKinematic = !isRagdoll;
 
-        mainRigidBody.isKinematic = isRagdoll;
+        foreach (Collider col in allColliders)
+            col.enabled = isRagdoll;
+
         mainCollider.enabled = !isRagdoll;
+        mainRigidBody.isKinematic = isRagdoll;
 
         GetComponent<Rigidbody>().useGravity = !isRagdoll;
-        GetComponent<Animator>().enabled = !isRagdoll;
+
     }
     public bool TakeDamage(int damage)
     {
@@ -96,9 +100,9 @@ public class EnemyController : MonoBehaviour
         {
             isDead = true;
             mainRigidBody.isKinematic = false;
-            EnemyDie();
             DoRagdoll(true);
-            DestroyEnemy(10f);
+            EnemyDie();
+            DestroyEnemy(7f);
         }
         Debug.Log(currentHealt);
 
@@ -117,6 +121,9 @@ public class EnemyController : MonoBehaviour
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
         GetComponent<NavMeshAgent>().enabled = false;
         transform.Find("Canvas").Find("HealtBar").gameObject.SetActive(false);
+        audios[1].Stop();
+        audios[2].Stop();
+        audios[4].Play();
     }
 
     public void AddForceToBody(Vector3 direction)
@@ -150,18 +157,22 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetBool("isEnemyRoaring", false);
         enemyAnimator.SetBool("isEnemyRunning", true);
         isEnemyRoared = true;
-        audioData.Stop();
+        audios[0].Stop();
+        audios[2].Play();
     }
 
     public void ZombieScreamAnimStart()
     {
-        audioData.Play(0);
+        audios[0].Play(0);
+        audios[1].Stop();
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
     }
 
     public void StartAttackAnim()
     {
         GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        audios[2].Pause();
+        audios[3].Play();
     }
 
     public void FinishAttackAnim()
@@ -170,6 +181,7 @@ public class EnemyController : MonoBehaviour
         {
             GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
         }
+        audios[2].UnPause();
         enemyAnimator.SetBool("isEnemyAttacked", false);
         isHit = 0;
     }

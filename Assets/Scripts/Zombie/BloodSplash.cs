@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+
 
 public class BloodSplash : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class BloodSplash : MonoBehaviour
     public void Splash(Vector3 hitPoint)
     {
         blood = Instantiate(bloodPrefab, hitPoint, Quaternion.identity);
-       // blood.GetComponent<ParticleSystem>().Play();
+        // blood.GetComponent<ParticleSystem>().Play();
     }
+
 }

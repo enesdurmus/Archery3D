@@ -14,16 +14,21 @@ public class ShootArrow : MonoBehaviour
     private bool isArrowCreated = false;
     private bool isArrowReleased = true;
     private bool canDrawAgain = true;
+    private bool isDrawSoundPlayed = false;
+    AudioSource[] audios;
 
 
     private void Start()
     {
+        audios = GetComponents<AudioSource>();
         CharacterAnimator = GetComponent<Animator>();
     }
 
     private void DrawBow()
     {
         Bow.GetComponent<BowController>().DrawBow();
+        if (!isDrawSoundPlayed)
+            audios[0].Play(); isDrawSoundPlayed = true;
     }
 
     public void HandleShootArrow()
@@ -51,6 +56,8 @@ public class ShootArrow : MonoBehaviour
                 if (drawControl == true && isArrowReleased == false)
                 {
                     isArrowReleased = true;
+                    isDrawSoundPlayed = false;
+                    audios[1].Play();
                     arrowTrigger.SetActive(true);
                     Bow.GetComponent<BowController>().ShootArrow(10f);
                     CharacterAnimator.SetBool("ShootArrow", true);

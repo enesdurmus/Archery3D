@@ -22,13 +22,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        GetComponent<PlayerMovement>().FindMaxSpeed();
         GetComponent<ShootArrow>().HandleShootArrow();
-        GetComponent<PlayerMovement>().HandleMovement();
-
     }
 
     private void FixedUpdate()
     {
+        GetComponent<PlayerMovement>().HandleMovement();
     }
 
     private void LateUpdate()

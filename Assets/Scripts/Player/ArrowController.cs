@@ -3,19 +3,20 @@ using UnityEngine;
 
 public class ArrowController : MonoBehaviour
 {
-    [SerializeField] private float arrowSpeed = 18f;
+    [SerializeField] private float arrowSpeed = 24f;
     [SerializeField] private int arrowPower = 10;
-    [SerializeField] private float slowFactor = 0.01f;
+    [SerializeField] private float slowFactor = 0.05f;
     private GameObject arrowOutPos;
     private Rigidbody physic;
     private Vector3 direction;
     private bool isArrowShooted = false;
-    private bool isHitEnemy = false;
     private RaycastHit hit;
     private GameObject mainCam;
+    AudioSource[] audios;
 
     private void Start()
     {
+        audios = GetComponents<AudioSource>();
         arrowOutPos = GameObject.FindGameObjectWithTag("ArrowPosTag");
         physic = GetComponent<Rigidbody>();
         mainCam = Camera.main.gameObject;
@@ -23,6 +24,7 @@ public class ArrowController : MonoBehaviour
 
     private void Update()
     {
+
         if (isArrowShooted)
             AddForceToArrow();
 
@@ -57,18 +59,18 @@ public class ArrowController : MonoBehaviour
 
     IEnumerator DestroyArrow(float time)
     {
-        gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
 
-    void OnCollisionEnter(Collision col)
+    private void OnCollisionEnter(Collision col)
     {
-        Debug.Log(col.transform.name);
         if (arrowSpeed > 0)
         {
             if (col.gameObject.tag == "Enemy")
             {
+                audios[1].Play();
+
                 col.gameObject.GetComponent<BloodSplash>().Splash(transform.position + transform.forward.normalized * 2);
 
                 if (col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower))
@@ -76,17 +78,17 @@ public class ArrowController : MonoBehaviour
                     col.gameObject.GetComponent<EnemyController>().AddForceToBody(direction + new Vector3(0f, 30f, 0f).normalized);
                     GetComponent<CameraTrackArrow>().ExitTrackArrow(col.gameObject.transform.Find("ZombieSlowPos").gameObject);
                 }
-
-                //isHitEnemy = true;
             }
-            if (hit.transform.tag == "Enemy") 
-                hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
-
-            if(!isHitEnemy)
+            else
+            {
                 GetComponent<CameraTrackArrow>().ExitTrackArrow();
+                audios[0].Play();
+            }
+
         }
+
+        StartCoroutine(DestroyArrow(3f));
         StickArrow(col);
-        StartCoroutine(DestroyArrow(10f));
     }
 
     void OnTriggerExit(Collider col)
@@ -99,11 +101,10 @@ public class ArrowController : MonoBehaviour
 
     private void StickArrow(Collision col)
     {
+        physic.detectCollisions = false;
         physic.isKinematic = true;
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().enabled = false;
         transform.SetParent(col.transform);
-        transform.Translate(transform.forward.normalized * 2);
     }
-
 }

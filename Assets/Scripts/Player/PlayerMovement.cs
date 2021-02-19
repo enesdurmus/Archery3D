@@ -20,12 +20,17 @@ public class PlayerMovement : MonoBehaviour
 
     private float vertical = 0, horizontal = 0;
 
+    private int walkOrRun = 2;
+
     private Animator CharacterAnimator;
+
+    AudioSource[] audios;
 
     float turnSmoothVelocity;
 
     void Start()
     {
+        audios = GetComponents<AudioSource>();
         CharacterAnimator = GetComponent<Animator>();
     }
 
@@ -37,9 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        FindMaxSpeed();
-
-
         if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerSimple")
         {
             if (direction.magnitude >= 0.1f)
@@ -47,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                if (!audios[walkOrRun].isPlaying)
+                    audios[walkOrRun].Play();
 
                 HandleMoveSpeed();
 
@@ -65,6 +70,9 @@ public class PlayerMovement : MonoBehaviour
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
+                if (!audios[walkOrRun].isPlaying)
+                    audios[walkOrRun].Play();
+
                 HandleMoveSpeed();
 
                 control.Move(moveDir.normalized * speed * Time.deltaTime);
@@ -80,24 +88,34 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void FindMaxSpeed()
+    public void FindMaxSpeed()
     {
-        if (GetComponent<InputController>().GetSprintInput()) maxSpeed = sprintSpeed;
-        else maxSpeed = walkSpeed;
+        if (GetComponent<InputController>().GetSprintInput())
+        {
+            maxSpeed = sprintSpeed;
+            audios[2].Stop();
+            walkOrRun = 3;
+        }
+        else
+        {
+            maxSpeed = walkSpeed;
+            audios[3].Stop();
+            walkOrRun = 2;
+        }
     }
 
     private void HandleMoveSpeed()
     {
-        if (speed < maxSpeed) speed += 0.1f;
+        if (speed < maxSpeed) speed += 2.5f * Time.deltaTime;
 
-        else if (speed > maxSpeed) speed -= 0.1f;
+        else if (speed > maxSpeed) speed -= 2.5f * Time.deltaTime;
     }
 
     private void HandleStopSpeed()
     {
         if (speed > 0)
-        {
-            speed -= 0.12f;
-        }
+            speed -= 3f * Time.deltaTime;
+        else
+            audios[walkOrRun].Stop();
     }
 }

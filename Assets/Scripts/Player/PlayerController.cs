@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] [Range(0.0f, 3.0f)] private float CharacterMovementSpeed, CharacterRotationSpeed;
 
+    [SerializeField] private RuntimeAnimatorController simpleAnimatorController = null;
     public float attackPower {get; set;}
     private Animator CharacterAnimator;
     public HealtBar healtBar;
@@ -41,10 +42,16 @@ public class PlayerController : MonoBehaviour
     {
         currentHealt -= damage;
         healtBar.SetHealt(currentHealt);
+        if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerAiming")
+            CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
         CharacterAnimator.SetBool("ReactParam", true);
+
+
+        
     }
     public void ReactAnimEnd()
     {
+        //CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
         CharacterAnimator.SetBool("ReactParam", false);
     }
 }

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: fef08531916e6dd48b444fda4cc9d5b5
+guid: e105c510d7b69a147a9dbf0211fb9259
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Shooting Arrow
+    second: mixamo.com
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -21,11 +21,11 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'LeftUpLeg'
-      : position error = 36.108452 mm\n\t'LeftLeg' : position error = 17.987217 mm\n\t'LeftFoot'
-      : position error = 34.136471 mm\n\t'LeftToeBase' : position error = 51.031403
-      mm\n\t'RightUpLeg' : position error = 40.280079 mm\n\t'RightLeg' : position
-      error = 19.739683 mm\n\t'RightFoot' : position error = 34.080437 mm\n\t'RightToeBase'
-      : position error = 50.080475 mm\n"
+      : position error = 36.108704 mm\n\t'LeftLeg' : position error = 17.986814 mm\n\t'LeftFoot'
+      : position error = 34.136768 mm\n\t'LeftToeBase' : position error = 51.030991
+      mm\n\t'RightUpLeg' : position error = 40.280460 mm\n\t'RightLeg' : position
+      error = 19.739897 mm\n\t'RightFoot' : position error = 34.080509 mm\n\t'RightToeBase'
+      : position error = 50.080074 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -41,10 +41,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Shooting Arrow
+      name: mixamo.com
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 90
+      firstFrame: 91
       lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
@@ -57,7 +57,7 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -65,7 +65,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.33004928
+      - time: 0
+        functionName: StartShootAnim
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
         functionName: FinishShootAnim
         data: 
         objectReferenceParameter: {instanceID: 0}

@@ -2982,7 +2982,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 1
+  m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 0
   m_AngularSpeed: 120
@@ -3018,6 +3018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e234fbbcb54d8444e95f02562519311f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnEffectPrefab: {fileID: 4803117747373326124, guid: fb3d93272348aa04da9ef49b556e2bf9,
+    type: 3}
   healtBar: {fileID: 443437845}
   maxHealt: 20
 --- !u!114 &2116846476

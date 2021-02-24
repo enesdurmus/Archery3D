@@ -368,6 +368,11 @@ PrefabInstance:
       propertyPath: healtBar
       value: 
       objectReference: {fileID: 312367172}
+    - target: {fileID: 1626808276083128478, guid: 958da787c19d0324289af40eea486295,
+        type: 3}
+      propertyPath: simpleAnimatorController
+      value: 
+      objectReference: {fileID: 9100000, guid: fdf1622b2614f974bb8582f71ebe3d64, type: 2}
     - target: {fileID: 1896855830273492417, guid: 958da787c19d0324289af40eea486295,
         type: 3}
       propertyPath: m_Name

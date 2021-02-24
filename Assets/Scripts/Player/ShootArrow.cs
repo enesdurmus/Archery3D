@@ -67,6 +67,16 @@ public class ShootArrow : MonoBehaviour
         }
     }
 
+    public void ResetShoot()
+    {
+        Debug.Log("giriyormu");
+        CharacterAnimator.SetBool("ShootArrow", false);
+        drawControl = false;
+        arrowTrigger.SetActive(false);
+        isArrowReleased = true;
+        canDrawAgain = true;
+    }
+
     public void StartShootAnim()
     {
         canDrawAgain = false;
@@ -74,12 +84,11 @@ public class ShootArrow : MonoBehaviour
 
     public void FinishShootAnim()
     {
-        canDrawAgain = true;
         CharacterAnimator.SetBool("ShootArrow", false);
         CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
         drawControl = false;
         arrowTrigger.SetActive(false);
         isArrowReleased = true;
+        canDrawAgain = true;
     }
-
 }

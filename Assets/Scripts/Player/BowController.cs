@@ -12,9 +12,9 @@ public class BowController : MonoBehaviour
 
     public GameObject CreateArrow()
     {
-            arrow = Instantiate(arrowPrefab);
-            arrow.SetActive(false);
-        
+        arrow = Instantiate(arrowPrefab);
+        arrow.SetActive(false);
+
         return arrow;
     }
 
@@ -27,7 +27,7 @@ public class BowController : MonoBehaviour
 
     public void ShootArrow(float attackPower)
     {
-        if(arrow != null)
+        if (arrow != null)
         {
             arrow.GetComponent<ArrowController>().InputUpdates(attackPower);
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ParticleSystemControl : MonoBehaviour
 {
     private ParticleSystem ps;
+    private ParticleSystem[] ps1;
 
 
     public void Start()
@@ -14,7 +15,7 @@ public class ParticleSystemControl : MonoBehaviour
 
     public void Update()
     {
-        if (ps)
+        if (ps != null)
         {
             if (!ps.IsAlive())
             {

@@ -10,6 +10,7 @@ TagManager:
   - empty
   - GameMode
   - Enemy
+  - ParticleSystem
   layers:
   - Default
   - TransparentFX

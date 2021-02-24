@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
 
+    [SerializeField] private GameObject SpawnEffectPrefab;
+
     private GameObject player;
     private Animator enemyAnimator;
     private GameObject gameMode;
@@ -13,6 +15,7 @@ public class EnemyController : MonoBehaviour
     private int currentHealt;
     private int isHit = 0;
     private bool isDead = false;
+    private GameObject spawnEffect;
 
     private Collider mainCollider;
     private Collider[] allColliders;
@@ -37,11 +40,16 @@ public class EnemyController : MonoBehaviour
         gameMode = GameObject.FindGameObjectWithTag("GameMode");
         player = GameObject.FindGameObjectWithTag("Player");
         enemyAnimator = GetComponent<Animator>();
+
+    }
+
+    private void Start()
+    {
+        spawnEffect = Instantiate(SpawnEffectPrefab, transform.position, Quaternion.identity);
         currentHealt = maxHealt;
         healtBar.SetMaxHealt(maxHealt);
         attackPower = 10f;
     }
-
     void Update()
     {
         if(!isDead) GetComponent<EnemyMovementAI>().handleMovement();
@@ -54,8 +62,11 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator DestroyEnemy(float time)
     {
+        Debug.Log("la noluo");
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
+        Debug.Log("la noldi ");
+
     }
 
     public void AttackControl()
@@ -85,8 +96,8 @@ public class EnemyController : MonoBehaviour
         foreach (Collider col in allColliders)
             col.enabled = isRagdoll;
 
-        mainCollider.enabled = !isRagdoll;
         mainRigidBody.isKinematic = isRagdoll;
+        mainCollider.enabled = !isRagdoll;
 
         GetComponent<Rigidbody>().useGravity = !isRagdoll;
 
@@ -102,7 +113,6 @@ public class EnemyController : MonoBehaviour
             mainRigidBody.isKinematic = false;
             DoRagdoll(true);
             EnemyDie();
-            DestroyEnemy(7f);
         }
         Debug.Log(currentHealt);
 
@@ -124,6 +134,8 @@ public class EnemyController : MonoBehaviour
         audios[1].Stop();
         audios[2].Stop();
         audios[4].Play();
+        DestroyEnemy(5f);
+
     }
 
     public void AddForceToBody(Vector3 direction)
@@ -205,5 +217,9 @@ public class EnemyController : MonoBehaviour
         GetComponent<Animator>().enabled = false;
     }
 
-
+    public void FinishSpawnAnim()
+    {
+        Destroy(spawnEffect.gameObject);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(1f);
+    }
 }

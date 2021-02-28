@@ -37,14 +37,14 @@ public class CameraTrackArrow : MonoBehaviour
         gameMode.GetComponent<SlowMotion>().DoSlowMotion(0.5f);
         yield return new WaitForSeconds(time);
         gameMode.GetComponent<SlowMotion>().ExitSlowMotion();
-        player.GetComponent<PlayerController>().enabled = true;
+        player.GetComponent<CameraController>().enabled = true;
         isHitEnemy = false;
     }
 
     private void CamMove()
     {
-        cam.transform.position = Vector3.Lerp(cam.transform.position, trackPos.transform.position, 0.015f);
-        cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, trackPos.transform.rotation, 0.005f);
+        cam.transform.position = Vector3.Lerp(cam.transform.position, trackPos.transform.position, 0.05f);
+        cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, trackPos.transform.rotation, 0.01f);
     }
 
     private void CamMoveHit()
@@ -56,7 +56,7 @@ public class CameraTrackArrow : MonoBehaviour
     {
         isArrowTracking = true;
         gameMode.GetComponent<SlowMotion>().DoSlowMotion();
-        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<CameraController>().enabled = false;
     }
     public void ExitTrackArrow(GameObject trackPos)
     {

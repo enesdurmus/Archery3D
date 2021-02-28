@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     float gravity = -9.81f;
 
+    private bool isWalking = false;
+
     private float speed = 0, maxSpeed;
 
     private float vertical = 0, horizontal = 0;
@@ -28,10 +30,21 @@ public class PlayerMovement : MonoBehaviour
 
     float turnSmoothVelocity;
 
-    void Start()
+    private void Start()
     {
         audios = GetComponents<AudioSource>();
         CharacterAnimator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        FindMaxSpeed();
+
+    }
+
+    private void FixedUpdate()
+    {
+        HandleMovement();
     }
 
     public void HandleMovement()
@@ -42,10 +55,14 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+        HandleMoveSpeed();
+
         if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerSimple")
         {
             if (direction.magnitude >= 0.1f)
             {
+                isWalking = true;
+
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -59,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
                 control.Move(moveDir.normalized * speed * Time.deltaTime);
             }
-            else HandleStopSpeed();
+            else isWalking = false;
 
             CharacterAnimator.SetFloat("speed", speed);
         }
@@ -67,17 +84,18 @@ public class PlayerMovement : MonoBehaviour
         {
             if (direction.magnitude >= 0.1f)
             {
+                isWalking = true;
+
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
                 if (!audios[walkOrRun].isPlaying)
                     audios[walkOrRun].Play();
 
-                HandleMoveSpeed();
 
                 control.Move(moveDir.normalized * speed * Time.deltaTime);
             }
-            else HandleStopSpeed();
+            else isWalking = false;
 
             CharacterAnimator.SetFloat("vertical", vertical);
             CharacterAnimator.SetFloat("horizontal", horizontal);
@@ -96,26 +114,22 @@ public class PlayerMovement : MonoBehaviour
             audios[2].Stop();
             walkOrRun = 3;
         }
-        else
+        else if (isWalking)
         {
             maxSpeed = walkSpeed;
             audios[3].Stop();
             walkOrRun = 2;
         }
+        else
+        {
+            maxSpeed = 0f;
+            audios[2].Stop();
+            audios[3].Stop();
+        }
     }
 
     private void HandleMoveSpeed()
     {
-        if (speed < maxSpeed) speed += 2.5f * Time.deltaTime;
-
-        else if (speed > maxSpeed) speed -= 2.5f * Time.deltaTime;
-    }
-
-    private void HandleStopSpeed()
-    {
-        if (speed > 0)
-            speed -= 3f * Time.deltaTime;
-        else
-            audios[walkOrRun].Stop();
+        speed = Mathf.Lerp(speed, maxSpeed, 0.05f);
     }
 }

@@ -21,13 +21,15 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        HandleCameraMovement();
+
         if (isMouseClicked)
         {
-            iskelet.rotation = iskelet.rotation * Quaternion.Euler(new Vector3(0, 0, verticalMouse));
+            iskelet.rotation *= Quaternion.Euler(new Vector3(0, 0, verticalMouse));
         } 
     }
 
-    public void handleCameraMovement()
+    public void HandleCameraMovement()
     {
         crossHair.SetActive(false);
 

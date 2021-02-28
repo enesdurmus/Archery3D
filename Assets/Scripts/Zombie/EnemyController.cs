@@ -17,7 +17,6 @@ public class EnemyController : MonoBehaviour
     private bool isDead = false;
     private GameObject spawnEffect;
 
-    private Collider mainCollider;
     private Collider[] allColliders;
     private Rigidbody[] allRigidBodies;
     private Rigidbody mainRigidBody;
@@ -32,7 +31,6 @@ public class EnemyController : MonoBehaviour
     void Awake()
     {
         audios = GetComponents<AudioSource>();
-        mainCollider = GetComponent<Collider>();
         allColliders = GetComponentsInChildren<Collider>();
         allRigidBodies = GetComponentsInChildren<Rigidbody>();
         mainRigidBody = GetComponent<Rigidbody>();
@@ -62,11 +60,8 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator DestroyEnemy(float time)
     {
-        Debug.Log("la noluo");
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
-        Debug.Log("la noldi ");
-
     }
 
     public void AttackControl()
@@ -93,11 +88,11 @@ public class EnemyController : MonoBehaviour
         foreach (Rigidbody rb in allRigidBodies)
             rb.isKinematic = !isRagdoll;
 
-        foreach (Collider col in allColliders)
-            col.enabled = isRagdoll;
+       // foreach (Collider col in allColliders)
+      //      col.enabled = isRagdoll;
 
-        mainRigidBody.isKinematic = isRagdoll;
-        mainCollider.enabled = !isRagdoll;
+      //  mainRigidBody.isKinematic = isRagdoll;
+       // mainCollider.enabled = !isRagdoll;
 
         GetComponent<Rigidbody>().useGravity = !isRagdoll;
 
@@ -107,7 +102,7 @@ public class EnemyController : MonoBehaviour
         currentHealt -= damage;
         healtBar.SetHealt(currentHealt);
         GetComponent<Animator>().SetBool("enemyReact", true);
-        if (currentHealt == 0)
+        if (currentHealt <= 0)
         {
             isDead = true;
             mainRigidBody.isKinematic = false;
@@ -134,33 +129,13 @@ public class EnemyController : MonoBehaviour
         audios[1].Stop();
         audios[2].Stop();
         audios[4].Play();
-        DestroyEnemy(5f);
-
+        StartCoroutine(DestroyEnemy(5f));
     }
 
     public void AddForceToBody(Vector3 direction)
     {
         foreach (Rigidbody rb in allRigidBodies)
             rb.AddForce(direction * 25f, ForceMode.Impulse);
-    }
-
-    private void OnCollisionEnter(Collision col)
-    {
-        if (enemyAnimator != null)
-        {
-            if (enemyAnimator.GetBool("isEnemyAttacked"))
-            {
-                if (col.gameObject.name == "akai_e_espiritu")
-                {
-                    if (isHit == 0)
-                    {
-                        col.gameObject.GetComponent<PlayerController>().TakeDamage(10);
-                        isHit = 1;
-                    }
-                }
-            }
-        }
-
     }
 
     public void ZombieScreamAnimFinish()

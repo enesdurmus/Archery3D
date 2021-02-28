@@ -11,6 +11,8 @@ TagManager:
   - GameMode
   - Enemy
   - ParticleSystem
+  - ZombieHead
+  - ZombieOtherParts
   layers:
   - Default
   - TransparentFX

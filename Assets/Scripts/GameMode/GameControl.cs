@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameControl : MonoBehaviour
 {
-    public GameObject waveCanvas;
+    public GameObject waveText;
+    public GameObject scoreText;
+
     public int waveCount = 1;
     private int enemySum;
     private int enemyKillCount = 0;
@@ -26,6 +28,7 @@ public class GameControl : MonoBehaviour
     public void SetKillEnemyCount()
     {
         enemyKillCount++;
+        scoreText.GetComponent<TMPro.TextMeshProUGUI>().SetText("Score : " + enemyKillCount);
     }
 
     private void StartWave()
@@ -37,9 +40,9 @@ public class GameControl : MonoBehaviour
 
     private IEnumerator PrintWaveInfo()
     {
-        waveCanvas.SetActive(true);
-        waveCanvas.GetComponent<TMPro.TextMeshProUGUI>().SetText("Wave " + waveCount);
+        waveText.SetActive(true);
+        waveText.GetComponent<TMPro.TextMeshProUGUI>().SetText("Wave " + waveCount);
         yield return new WaitForSeconds(4f);
-        waveCanvas.SetActive(false);
+        waveText.SetActive(false);
     }
 }

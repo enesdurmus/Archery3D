@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 525ab8a7321a12d41a5b0a3845dbcb91
+guid: 45d8ca13c50de5a4ea93bd029d434d98
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: React
+    second: mixamo.com
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -19,7 +19,13 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'LeftUpLeg'
+      : position error = 36.108704 mm\n\t'LeftLeg' : position error = 17.986814 mm\n\t'LeftFoot'
+      : position error = 34.136768 mm\n\t'LeftToeBase' : position error = 51.030991
+      mm\n\t'RightUpLeg' : position error = 40.280460 mm\n\t'RightLeg' : position
+      error = 19.739897 mm\n\t'RightFoot' : position error = 34.080509 mm\n\t'RightToeBase'
+      : position error = 50.080074 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -35,11 +41,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: React
+      name: mixamo.com
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 38
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -59,7 +65,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.04901959
+      - time: 0.11737087
         functionName: ReactAnimEnd
         data: 
         objectReferenceParameter: {instanceID: 0}

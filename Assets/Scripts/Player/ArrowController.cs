@@ -14,6 +14,9 @@ public class ArrowController : MonoBehaviour
     private GameObject mainCam;
     AudioSource[] audios;
 
+
+    int counter = 0;
+
     private void Start()
     {
         audios = GetComponents<AudioSource>();
@@ -24,7 +27,6 @@ public class ArrowController : MonoBehaviour
 
     private void Update()
     {
-
         if (isArrowShooted)
             AddForceToArrow();
 
@@ -49,10 +51,11 @@ public class ArrowController : MonoBehaviour
         isArrowShooted = true;
         transform.GetComponent<Rigidbody>().isKinematic = false;
 
-        if (hit.transform.tag == "Enemy" && hit.transform.gameObject.GetComponent<EnemyController>().GetHealt() == 10)
+        if (hit.transform.root.gameObject.CompareTag("Enemy") && hit.transform.root.gameObject.GetComponent<EnemyController>().GetHealt() == 10)
         {
+            audios[2].Play();
             GetComponent<CameraTrackArrow>().enabled = true;
-            hit.transform.GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+            hit.transform.root.GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
             GetComponent<CameraTrackArrow>().TrackArrow();
         }
     }
@@ -65,18 +68,27 @@ public class ArrowController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
+        Debug.Log(counter++);
+        Debug.Log(col.transform.tag);
+
         if (arrowSpeed > 0)
         {
-            if (col.gameObject.tag == "Enemy")
+            StickArrow(col);
+
+            if (col.transform.root.gameObject.CompareTag("Enemy"))
             {
+                if (col.transform.CompareTag("ZombieHead"))
+                    arrowPower = 100;
+
                 audios[1].Play();
+                audios[2].Stop();
 
-                col.gameObject.GetComponent<BloodSplash>().Splash(transform.position + transform.forward.normalized * 2);
+                col.transform.root.gameObject.GetComponent<BloodSplash>().Splash(transform.position + transform.forward.normalized * 2);
 
-                if (col.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower))
+                if (col.transform.root.gameObject.GetComponent<EnemyController>().TakeDamage(arrowPower))
                 {
-                    col.gameObject.GetComponent<EnemyController>().AddForceToBody(direction + new Vector3(0f, 30f, 0f).normalized);
-                    GetComponent<CameraTrackArrow>().ExitTrackArrow(col.gameObject.transform.Find("ZombieSlowPos").gameObject);
+                    col.transform.root.gameObject.GetComponent<EnemyController>().AddForceToBody(direction + new Vector3(0f, 30f, 0f).normalized);
+                    GetComponent<CameraTrackArrow>().ExitTrackArrow(col.transform.root.gameObject.transform.Find("ZombieSlowPos").gameObject);
                 }
             }
             else
@@ -84,11 +96,9 @@ public class ArrowController : MonoBehaviour
                 GetComponent<CameraTrackArrow>().ExitTrackArrow();
                 audios[0].Play();
             }
-
         }
 
         StartCoroutine(DestroyArrow(3f));
-        StickArrow(col);
     }
 
     void OnTriggerExit(Collider col)
@@ -101,7 +111,9 @@ public class ArrowController : MonoBehaviour
 
     private void StickArrow(Collision col)
     {
+        arrowSpeed = 0;
         physic.detectCollisions = false;
+        physic.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         physic.isKinematic = true;
         isArrowShooted = false;
         GetComponent<CapsuleCollider>().enabled = false;

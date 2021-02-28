@@ -24,6 +24,10 @@ public class ShootArrow : MonoBehaviour
         CharacterAnimator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        HandleShootArrow();
+    }
     private void DrawBow()
     {
         Bow.GetComponent<BowController>().DrawBow();
@@ -69,12 +73,12 @@ public class ShootArrow : MonoBehaviour
 
     public void ResetShoot()
     {
-        Debug.Log("giriyormu");
         CharacterAnimator.SetBool("ShootArrow", false);
         drawControl = false;
         arrowTrigger.SetActive(false);
         isArrowReleased = true;
         canDrawAgain = true;
+        isArrowCreated = false;
     }
 
     public void StartShootAnim()

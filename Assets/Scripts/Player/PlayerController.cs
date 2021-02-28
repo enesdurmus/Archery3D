@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public HealtBar healtBar;
     private int maxHealt = 100;
     private int currentHealt;
+    private bool isDead = false;
 
     void Start()
     {
@@ -20,38 +21,38 @@ public class PlayerController : MonoBehaviour
         CharacterAnimator = GetComponent<Animator>();
     }
 
-
-    private void Update()
-    {
-        GetComponent<PlayerMovement>().FindMaxSpeed();
-        GetComponent<ShootArrow>().HandleShootArrow();
-    }
-
-    private void FixedUpdate()
-    {
-        GetComponent<PlayerMovement>().HandleMovement();
-    }
-
-    private void LateUpdate()
-    {
-        GetComponent<CameraController>().handleCameraMovement();
-
-    }
-
     public void TakeDamage(int damage)
     {
-        currentHealt -= damage;
-        healtBar.SetHealt(currentHealt);
-        if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerAiming")
-            CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
-        CharacterAnimator.SetBool("ReactParam", true);
+        if (!isDead) {
+            currentHealt -= damage;
+            healtBar.SetHealt(currentHealt);
+            if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerAiming")
+                CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
+            if (currentHealt == 0)
+            {
+                isDead = true;
+                GetComponent<CharacterController>().enabled = false;
+                GetComponent<CameraController>().enabled = false;
+                GetComponent<PlayerMovement>().enabled = false;
+                GetComponent<ShootArrow>().enabled = false;
+                CharacterAnimator.SetBool("isDead", true);
+            }
+            else
+            {
+                CharacterAnimator.SetBool("ReactParam", true);
+                GetComponent<ShootArrow>().ResetShoot();
 
-
-        
+            }
+        }    
     }
+
     public void ReactAnimEnd()
     {
-        //CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
         CharacterAnimator.SetBool("ReactParam", false);
+    }
+
+    public void FinishDeadAnim()
+    {
+        CharacterAnimator.SetBool("isDead", false);
     }
 }

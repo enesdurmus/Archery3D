@@ -2910,7 +2910,7 @@ GameObject:
   - component: {fileID: 3291037998180216728}
   - component: {fileID: -7385014817247103152}
   - component: {fileID: 9126239028455947130}
-  - component: {fileID: 3469238376763277726}
+  - component: {fileID: 4193306336217661701}
   m_Layer: 0
   m_Name: zombie
   m_TagString: Enemy
@@ -2965,7 +2965,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5088459f9cdd3504492bc7ebc0505ff6, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2980,7 +2980,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6632615629300511048}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.44
+  m_Radius: 0.34
   m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 1
@@ -3144,7 +3144,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 179d13aa38ec5a6449b1ee7d93cfed7c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3363,7 +3363,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c80645524d5ae7a40af02f754889b607, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3447,7 +3447,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &3469238376763277726
+--- !u!82 &4193306336217661701
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3457,8 +3457,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 76413c40cb5ac2545b9c8ef7ec12269a, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: bd2d646d834cf1444b1e650e86b37ece, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3467,10 +3467,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 4
-  MaxDistance: 20
+  MinDistance: 1
+  MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -3503,7 +3503,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

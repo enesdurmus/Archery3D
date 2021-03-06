@@ -8,7 +8,14 @@ public class BowController : MonoBehaviour
     [SerializeField]
     private GameObject arrowPos;
 
+    private Animator bowAnimator;
+
     GameObject arrow;
+
+    private void Start()
+    {
+        bowAnimator = GetComponent<Animator>();
+    }
 
     public GameObject CreateArrow()
     {
@@ -18,6 +25,15 @@ public class BowController : MonoBehaviour
         return arrow;
     }
 
+    public void StartDrawAnim()
+    {
+        bowAnimator.SetBool("drawAnim", true);
+    }
+
+    public void StartReleaseAnim()
+    {
+        bowAnimator.SetBool("drawAnim", false);
+    }
     public void DrawBow()
     {
         arrow.transform.position = arrowPos.transform.position;
@@ -30,6 +46,7 @@ public class BowController : MonoBehaviour
         if (arrow != null)
         {
             arrow.GetComponent<ArrowController>().InputUpdates(attackPower);
+            StartReleaseAnim();
         }
     }
 }

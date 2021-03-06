@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject characterCamera = null, crossHair = null;
+
+    private float camGoSpeed = 0.05f, camBackSpeed = 0.1f;
 
     private float verticalMouse = 0, horizontalMouse = 0;
     private Transform iskelet;
@@ -26,7 +29,7 @@ public class CameraController : MonoBehaviour
         if (isMouseClicked)
         {
             iskelet.rotation *= Quaternion.Euler(new Vector3(0, 0, verticalMouse));
-        } 
+        }
     }
 
     public void HandleCameraMovement()
@@ -43,15 +46,17 @@ public class CameraController : MonoBehaviour
         float[] playerInputs = GetComponent<InputController>().GetMovementInputs();
         isMouseClicked = GetComponent<InputController>().GetMouseClickInf();
 
-        if (isMouseClicked){
+        if (isMouseClicked)
+        {
             crossHair.SetActive(true);
-            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, 0.1f);
-            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos2.transform.rotation, 0.1f);
+            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos2.transform.position, camGoSpeed);
+            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos2.transform.rotation, camGoSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, horizontalMouse, transform.eulerAngles.z), 0.4f);
         }
-        else{
-            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, 0.1f);
-            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos1.transform.rotation, 0.1f);
+        else
+        {
+            cam1.transform.position = Vector3.Lerp(cam1.transform.position, pos1.transform.position, camBackSpeed);
+            cam1.transform.rotation = Quaternion.Lerp(cam1.transform.rotation, pos1.transform.rotation, camBackSpeed);
         }
     }
 }

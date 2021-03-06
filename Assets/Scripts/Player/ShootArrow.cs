@@ -2,26 +2,26 @@
 
 public class ShootArrow : MonoBehaviour
 {
-    [SerializeField] private GameObject Bow = null;
+    [SerializeField] private GameObject Bow;
 
-    [SerializeField] private GameObject arrowTrigger = null;
+    [SerializeField] private GameObject arrowTrigger;
 
-    [SerializeField] private RuntimeAnimatorController whileAimingAnimatorController = null, simpleAnimatorController = null;
+    [SerializeField] private RuntimeAnimatorController whileAimingAnimatorController, simpleAnimatorController;
 
-    private Animator CharacterAnimator;
+    private Animator characterAnimator;
     private bool isMouseClicked;
     private bool drawControl = false;
     private bool isArrowCreated = false;
     private bool isArrowReleased = true;
     private bool canDrawAgain = true;
-    private bool isDrawSoundPlayed = false;
+    private bool isBowDrawed = false;
     AudioSource[] audios;
 
 
     private void Start()
     {
         audios = GetComponents<AudioSource>();
-        CharacterAnimator = GetComponent<Animator>();
+        characterAnimator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -31,8 +31,11 @@ public class ShootArrow : MonoBehaviour
     private void DrawBow()
     {
         Bow.GetComponent<BowController>().DrawBow();
-        if (!isDrawSoundPlayed)
-            audios[0].Play(); isDrawSoundPlayed = true;
+        if (!isBowDrawed)
+        {
+            audios[0].Play();
+            isBowDrawed = true;
+        }
     }
 
     public void HandleShootArrow()
@@ -45,11 +48,11 @@ public class ShootArrow : MonoBehaviour
                 if (!isArrowCreated)
                 {
                     Bow.GetComponent<BowController>().CreateArrow();
-                    CharacterAnimator.runtimeAnimatorController = whileAimingAnimatorController;
+                    characterAnimator.runtimeAnimatorController = whileAimingAnimatorController;
                     isArrowCreated = true;
                     isArrowReleased = false;
                 }
-                if (CharacterAnimator.GetBool("ShootArrow") == false)
+                if (characterAnimator.GetBool("ShootArrow") == false)
                 {
                     DrawBow();
                     drawControl = true;
@@ -60,11 +63,11 @@ public class ShootArrow : MonoBehaviour
                 if (drawControl == true && isArrowReleased == false)
                 {
                     isArrowReleased = true;
-                    isDrawSoundPlayed = false;
+                    isBowDrawed = false;
                     audios[1].Play();
                     arrowTrigger.SetActive(true);
                     Bow.GetComponent<BowController>().ShootArrow(10f);
-                    CharacterAnimator.SetBool("ShootArrow", true);
+                    characterAnimator.SetBool("ShootArrow", true);
                     isArrowCreated = false;
                 }
             }
@@ -73,7 +76,8 @@ public class ShootArrow : MonoBehaviour
 
     public void ResetShoot()
     {
-        CharacterAnimator.SetBool("ShootArrow", false);
+        if(characterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerAiming")
+            characterAnimator.SetBool("ShootArrow", false);
         drawControl = false;
         arrowTrigger.SetActive(false);
         isArrowReleased = true;
@@ -88,11 +92,16 @@ public class ShootArrow : MonoBehaviour
 
     public void FinishShootAnim()
     {
-        CharacterAnimator.SetBool("ShootArrow", false);
-        CharacterAnimator.runtimeAnimatorController = simpleAnimatorController;
+        characterAnimator.SetBool("ShootArrow", false);
+        characterAnimator.runtimeAnimatorController = simpleAnimatorController;
         drawControl = false;
         arrowTrigger.SetActive(false);
         isArrowReleased = true;
         canDrawAgain = true;
+    }
+
+    public void StartDrawArrow()
+    {
+        Bow.GetComponent<BowController>().StartDrawAnim();
     }
 }

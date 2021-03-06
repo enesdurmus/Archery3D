@@ -22,17 +22,12 @@ public class PlayerMovement : MonoBehaviour
 
     private float vertical = 0, horizontal = 0;
 
-    private int walkOrRun = 2;
-
     private Animator CharacterAnimator;
-
-    AudioSource[] audios;
 
     float turnSmoothVelocity;
 
     private void Start()
     {
-        audios = GetComponents<AudioSource>();
         CharacterAnimator = GetComponent<Animator>();
     }
 
@@ -67,9 +62,6 @@ public class PlayerMovement : MonoBehaviour
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                if (!audios[walkOrRun].isPlaying)
-                    audios[walkOrRun].Play();
-
                 HandleMoveSpeed();
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -89,10 +81,6 @@ public class PlayerMovement : MonoBehaviour
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-                if (!audios[walkOrRun].isPlaying)
-                    audios[walkOrRun].Play();
-
-
                 control.Move(moveDir.normalized * speed * Time.deltaTime);
             }
             else isWalking = false;
@@ -109,23 +97,12 @@ public class PlayerMovement : MonoBehaviour
     public void FindMaxSpeed()
     {
         if (GetComponent<InputController>().GetSprintInput())
-        {
             maxSpeed = sprintSpeed;
-            audios[2].Stop();
-            walkOrRun = 3;
-        }
         else if (isWalking)
-        {
             maxSpeed = walkSpeed;
-            audios[3].Stop();
-            walkOrRun = 2;
-        }
+
         else
-        {
             maxSpeed = 0f;
-            audios[2].Stop();
-            audios[3].Stop();
-        }
     }
 
     private void HandleMoveSpeed()

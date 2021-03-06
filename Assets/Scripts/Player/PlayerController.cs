@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private int maxHealt = 100;
     private int currentHealt;
     private bool isDead = false;
+    private AudioSource[] audios;
 
     void Start()
     {
@@ -19,11 +22,15 @@ public class PlayerController : MonoBehaviour
         healtBar.SetMaxHealt(maxHealt);
         attackPower = 10f;
         CharacterAnimator = GetComponent<Animator>();
+        audios = GetComponents<AudioSource>();
+        StartCoroutine(SetActiveCameraController(9.12f));
     }
 
     public void TakeDamage(int damage)
     {
-        if (!isDead) {
+        if (!isDead)
+        {
+            audios[6].Play();
             currentHealt -= damage;
             healtBar.SetHealt(currentHealt);
             if (CharacterAnimator.runtimeAnimatorController.name == "CharacterAnimatorControllerAiming")
@@ -41,9 +48,30 @@ public class PlayerController : MonoBehaviour
             {
                 CharacterAnimator.SetBool("ReactParam", true);
                 GetComponent<ShootArrow>().ResetShoot();
-
             }
         }    
+    }
+
+    private IEnumerator SetActiveCameraController(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GetComponent<CameraController>().enabled = true;
+        GameObject.FindGameObjectWithTag("CharacterCamera").GetComponent<Animator>().enabled = false;
+    }
+    public void StopPlayerControl()
+    {
+        GetComponent<CharacterController>().enabled = false;
+        GetComponent<CameraController>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<ShootArrow>().enabled = false;
+    }
+
+    public void BeginPlayerControl()
+    {
+        GetComponent<CharacterController>().enabled = true;
+        GetComponent<CameraController>().enabled = true;
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<ShootArrow>().enabled = true;
     }
 
     public void ReactAnimEnd()
@@ -54,5 +82,23 @@ public class PlayerController : MonoBehaviour
     public void FinishDeadAnim()
     {
         CharacterAnimator.SetBool("isDead", false);
+    }
+
+    public void WalkSoundLeft()
+    {
+        audios[3].Play();
+    }
+    public void WalkSoundRight()
+    {
+        audios[2].Play();
+    }
+
+    public void RunSoundLeft() 
+    {
+        audios[4].Play();
+    }
+    public void RunSoundRight()
+    {
+        audios[5].Play();
     }
 }

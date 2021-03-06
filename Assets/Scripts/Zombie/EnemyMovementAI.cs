@@ -23,6 +23,6 @@ public class EnemyMovementAI : MonoBehaviour
 
     public void SetEnemySpeed(float speed)
     {
-        agent.speed = speed;
+        agent.speed = speed * Time.deltaTime;
     }
 }

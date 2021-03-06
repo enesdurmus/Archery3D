@@ -14,9 +14,6 @@ public class ArrowController : MonoBehaviour
     private GameObject mainCam;
     AudioSource[] audios;
 
-
-    int counter = 0;
-
     private void Start()
     {
         audios = GetComponents<AudioSource>();
@@ -68,9 +65,6 @@ public class ArrowController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        Debug.Log(counter++);
-        Debug.Log(col.transform.tag);
-
         if (arrowSpeed > 0)
         {
             StickArrow(col);

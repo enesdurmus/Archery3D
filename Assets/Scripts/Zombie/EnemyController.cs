@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +12,7 @@ public class EnemyController : MonoBehaviour
     private GameObject gameMode;
     private bool isEnemyRoared = false;
     private int currentHealt;
-    private int isHit = 0;
+    private float speed, runSpeed = 90f, walkSpeed = 40f;
     private bool isDead = false;
     private GameObject spawnEffect;
 
@@ -47,6 +46,7 @@ public class EnemyController : MonoBehaviour
         currentHealt = maxHealt;
         healtBar.SetMaxHealt(maxHealt);
         attackPower = 10f;
+        speed = walkSpeed;
     }
     void Update()
     {
@@ -100,6 +100,7 @@ public class EnemyController : MonoBehaviour
     public bool TakeDamage(int damage)
     {
         currentHealt -= damage;
+        audios[4].Play();
         healtBar.SetHealt(currentHealt);
         GetComponent<Animator>().SetBool("enemyReact", true);
         if (currentHealt <= 0)
@@ -109,7 +110,6 @@ public class EnemyController : MonoBehaviour
             DoRagdoll(true);
             EnemyDie();
         }
-        Debug.Log(currentHealt);
 
         return isDead;
     }
@@ -123,12 +123,12 @@ public class EnemyController : MonoBehaviour
     {
         gameMode.GetComponent<GameControl>().SetKillEnemyCount();
         GetComponent<EnemyMovementAI>().enabled = false;
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        speed = 0f;
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
         GetComponent<NavMeshAgent>().enabled = false;
         transform.Find("Canvas").Find("HealtBar").gameObject.SetActive(false);
         audios[1].Stop();
         audios[2].Stop();
-        audios[4].Play();
         StartCoroutine(DestroyEnemy(5f));
     }
 
@@ -140,7 +140,8 @@ public class EnemyController : MonoBehaviour
 
     public void ZombieScreamAnimFinish()
     {
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
+        speed = runSpeed;
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
         enemyAnimator.SetBool("isEnemyRoaring", false);
         enemyAnimator.SetBool("isEnemyRunning", true);
         isEnemyRoared = true;
@@ -152,12 +153,14 @@ public class EnemyController : MonoBehaviour
     {
         audios[0].Play(0);
         audios[1].Stop();
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        speed = 0f;
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
     }
 
     public void StartAttackAnim()
     {
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(0f);
+        speed = 0f;
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
         audios[2].Pause();
         audios[3].Play();
     }
@@ -166,11 +169,11 @@ public class EnemyController : MonoBehaviour
     {
         if (!(Vector3.Distance(player.transform.position, transform.position) <= 1.5f))
         {
-            GetComponent<EnemyMovementAI>().SetEnemySpeed(3f);
+            speed = runSpeed;
+            GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
         }
         audios[2].UnPause();
         enemyAnimator.SetBool("isEnemyAttacked", false);
-        isHit = 0;
     }
 
     public void StartReactAnim()
@@ -181,7 +184,7 @@ public class EnemyController : MonoBehaviour
     public void EndReactAnim()
     {
         enemyAnimator.SetBool("enemyReact", false);
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(1f);
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
 
     }
     public void ZombieDieAnimEnd()
@@ -195,6 +198,7 @@ public class EnemyController : MonoBehaviour
     public void FinishSpawnAnim()
     {
         Destroy(spawnEffect.gameObject);
-        GetComponent<EnemyMovementAI>().SetEnemySpeed(1f);
+        speed = walkSpeed;
+        GetComponent<EnemyMovementAI>().SetEnemySpeed(speed);
     }
 }

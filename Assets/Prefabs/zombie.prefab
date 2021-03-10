@@ -342,13 +342,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1270012170}
-  m_LocalRotation: {x: 0.017584931, y: 0.95379424, z: -0.05397983, w: -0.29504833}
-  m_LocalPosition: {x: 2.92, y: 2.44, z: 4.58}
+  m_LocalRotation: {x: 0, y: 0.99563557, z: -0.09332633, w: 0}
+  m_LocalPosition: {x: -0.2, y: 4, z: 9.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6287051925747231730}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 5.313, y: 214.553, z: 3.766}
+  m_LocalEulerAnglesHint: {x: 10.71, y: 180, z: 0}
 --- !u!1 &1634107723
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,7 +3020,7 @@ MonoBehaviour:
   SpawnEffectPrefab: {fileID: 4803117747373326124, guid: fb3d93272348aa04da9ef49b556e2bf9,
     type: 3}
   healtBar: {fileID: 443437845}
-  maxHealt: 20
+  maxHealt: 50
 --- !u!114 &2116846476
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameControl : MonoBehaviour
@@ -13,7 +14,6 @@ public class GameControl : MonoBehaviour
     private int enemySum;
     private int enemyKillCount = 0;
     private GameObject player;
-    private bool isGamePaused = false;
 
     private void Start()
     {
@@ -24,9 +24,6 @@ public class GameControl : MonoBehaviour
 
     void Update()
     {
-
-        PauseGame();
-
         if (enemySum == enemyKillCount)
         {
             waveCount++;
@@ -55,20 +52,16 @@ public class GameControl : MonoBehaviour
         waveText.SetActive(false);
     }
 
-    private void PauseGame()
+    public void SetVolume()
     {
-        if (GetComponent<InputController>().GetPauseInput())
-        {
-            if (!isGamePaused)
-            {
-                Time.timeScale = 0;
-                AudioListener.volume = 0f;
-                player.GetComponent<PlayerController>().StopPlayerControl();
-                pausePanel.SetActive(true);
-                isGamePaused = true;
-            }
-            else UnPauseGame();
-        }
+        AudioListener.volume = pausePanel.transform.Find("OptionMenu").transform.Find("Slider").gameObject.GetComponent<Slider>().value;
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        AudioListener.volume = 0f;
+        player.GetComponent<PlayerController>().StopPlayerControl();
+        pausePanel.SetActive(true);
     }
 
     public void UnPauseGame()
@@ -77,6 +70,5 @@ public class GameControl : MonoBehaviour
         AudioListener.volume = 1f;
         player.GetComponent<PlayerController>().BeginPlayerControl();
         pausePanel.SetActive(false);
-        isGamePaused = false;
     }
 }

@@ -83,4 +83,7 @@ QualitySettings:
     - iPhone
     - Windows Store Apps
     - PS4
-  m_PerPlatformDefaultQuality: {}
+  m_PerPlatformDefaultQuality:
+    Android: 0
+    Standalone: 0
+    iPhone: 0

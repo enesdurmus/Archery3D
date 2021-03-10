@@ -43,7 +43,6 @@ public class CameraController : MonoBehaviour
         characterCamera.transform.rotation = Quaternion.Euler(verticalMouse, horizontalMouse, transform.eulerAngles.z);
         characterCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
 
-        float[] playerInputs = GetComponent<InputController>().GetMovementInputs();
         isMouseClicked = GetComponent<InputController>().GetMouseClickInf();
 
         if (isMouseClicked)

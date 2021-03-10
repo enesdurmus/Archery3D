@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
             maxSpeed = sprintSpeed;
         else if (isWalking)
             maxSpeed = walkSpeed;
-
         else
             maxSpeed = 0f;
     }

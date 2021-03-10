@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         attackPower = 10f;
         CharacterAnimator = GetComponent<Animator>();
         audios = GetComponents<AudioSource>();
-        StartCoroutine(SetActiveCameraController(9.12f));
+        StartCoroutine(SetActiveCameraController(7f));
     }
 
     public void TakeDamage(int damage)
